@@ -45,10 +45,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // returns complaints made by the user
     public function complaints() {
         return $this->hasMany(Complaint::class);
     }
 
+    // returns missing people made by the user
     public function missingPeople() {
         return $this->hasMany(MissingPerson::class);
     }
