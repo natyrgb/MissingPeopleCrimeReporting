@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    // returns view of superadmin home
     public function index() {
         return view('superadmin.home');
     }

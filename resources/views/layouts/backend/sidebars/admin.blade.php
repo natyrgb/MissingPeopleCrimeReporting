@@ -1,4 +1,3 @@
-
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="index3.html" class="brand-link">
         <img src="/images/AdminLTELogo.png" alt="MPaCRS" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -86,6 +85,11 @@
                         <li class="nav-item">
                             <a href="{{route('admin.employees.index')}}" class="nav-link @if($route == 'admin.employees.index') active @endif">
                                 <i class="far fa-eye nav-icon"></i><p>Show All</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('employee.edit_account')}}" class="nav-link @if($route == 'employee.edit_account') active @endif">
+                                <i class="far fa-eye nav-icon"></i><p>Edit Account</p>
                             </a>
                         </li>
                     </ul>

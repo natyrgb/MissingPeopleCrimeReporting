@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Blog extends Model
 {
@@ -24,5 +25,13 @@ class Blog extends Model
         if($path)
         unlink($path);
         return parent::delete();
+    }
+
+    // used to save the image to the blog
+    public function saveFile(UploadedFile $file) {
+        $imageName = time().'-'.$file->getClientOriginalName();
+        $file->move(public_path('images/blogs'), $imageName);
+        $this->url = 'images/blogs/'.$imageName;
+        $this->save();
     }
 }

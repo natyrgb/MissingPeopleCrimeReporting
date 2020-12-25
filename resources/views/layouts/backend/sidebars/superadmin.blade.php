@@ -89,16 +89,16 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('superadmin.wanted_criminals.create')}}" class="nav-link @if($route == 'superadmin.wanted_criminals.create') active @endif">
-                                <i class="fa fa-plus nav-icon"></i><p>Add New</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{route('superadmin.wanted_criminals.index')}}" class="nav-link @if($route == 'superadmin.wanted_criminals.index') active @endif">
                                 <i class="far fa-eye nav-icon"></i><p>Show All</p>
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('employee.edit_account')}}" class="nav-link @if($route == 'employee.edit_account') active @endif">
+                        <i class="far fa-eye nav-icon"></i><p>Edit Account</p>
+                    </a>
                 </li>
             </ul>
         </nav>

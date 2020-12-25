@@ -84,7 +84,6 @@ export default {
                 title: 'Oops...',
                 text: err.response.data.message
             })
-            currentObj.form.errors = err.response.data.errors
         });
     },
   },

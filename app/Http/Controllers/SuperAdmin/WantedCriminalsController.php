@@ -43,14 +43,6 @@ class WantedCriminalsController extends Controller
         return back()->with('success', true);
     }
 
-    public function store(Request $request) {}
-
-    public function show(WantedCriminal $wantedCriminal) {}
-
-    public function edit(WantedCriminal $wantedCriminal) {}
-
-    public function update(Request $request, WantedCriminal $wantedCriminal) {}
-
     /**
      * @param App\Models\WantedCriminal object
      * delete the wanted criminal entry from database without deleting the criminal

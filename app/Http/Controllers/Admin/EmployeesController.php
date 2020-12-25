@@ -96,13 +96,8 @@ class EmployeesController extends Controller
                 Rule::unique('employees')->ignore($employee)
             ],
         ]);
-        $dept = $request->role == 'ATTORNEY' ? null : $request->department;
-        $request->department = $request->role == 'ATTORNEY' ? null : $request->department;
-        $employee->name = $request['name'];
-        $employee->department_id = $dept;
-        $employee->role = $request['role'];
-        $employee->email = $request['email'];
-        $employee->phone = $request['phone'];
+        $request['department_id'] = $request->role == 'ATTORNEY' ? null : $request->department;
+        $employee->fill($request->all());
         $employee->save();
         return back()->with('success',true);
     }

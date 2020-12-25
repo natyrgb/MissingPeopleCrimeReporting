@@ -3,10 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ComplaintsController;
 use App\Http\Controllers\Api\GuestController;
-use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\MissingPeopleController;
-use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,8 +14,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     });
     Route::post('/login', [AuthController::class, 'login'])->name('login.api');
     Route::post('/register', [AuthController::class, 'register'])->name('register.api');
-    Route::get('/news', [GuestController::class, 'index'])->name('news');
-    Route::get('/get_woredas', [HomeController::class, 'getWoredas'])->name('get_woredas');
+    Route::get('/get_woredas', [GuestController::class, 'getWoredas'])->name('get_woredas');
     Route::get('/missing_people_for_guest', [GuestController::class, 'missingPeople'])->name('missing_people');
     Route::get('/wanted_criminals_api', [GuestController::class, 'wantedCriminals'])->name('wanted_criminals');
     Route::get('/news_feed_api', [GuestController::class, 'newsFeed'])->name('news_feed');

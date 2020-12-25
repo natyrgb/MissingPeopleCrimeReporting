@@ -34,10 +34,7 @@ class StationsController extends Controller
             'name' => 'required|string|unique:stations,name',
             'woreda' => 'required|integer|between:1,30'
         ]);
-        $station = Station::create([
-            'name' => $request['name'],
-            'woreda' => $request['woreda']
-        ]);
+        $station = Station::create($request->all());
         $departments = ['robbery', 'homicide', 'assault', 'burglary', 'narcotics'];
         foreach($departments as $d) {
             $station->departments()->create([
@@ -94,7 +91,7 @@ class StationsController extends Controller
      * @param station_id objects
      * @return json object of polices in the station with the given station_id
      */
-    public function get_polices($station_id) {
+    public function getPolices($station_id) {
         $employees = Employee::where([
             ['role', 'POLICE'],
             ['station_id', $station_id]
@@ -108,7 +105,7 @@ class StationsController extends Controller
      * change the station admin_id to the new employee id
      * @return redirect back with success message
      */
-    public function add_admin(Request $request, Station $station, Employee $employee)
+    public function addAdmin(Request $request, Station $station, Employee $employee)
     {
         if($station->admin != null) {
             $station->admin->role = 'POLICE';

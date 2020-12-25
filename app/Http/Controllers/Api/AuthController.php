@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    /**
+     * @param Illuminate\Http\Request object
+     * validate the inputs and create a user
+     * @return json object with token and user
+     */
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -29,10 +34,15 @@ class AuthController extends Controller
         $request['remember_token'] = Str::random(10);
         $user = User::create($request->toArray());
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-        $response = ['token' => $token, 'user' => $user];
+        $response = ['token' => $token, 'user' => $user, 'success' => true, 'message' => 'Welcome, You have successfully registered.'];
         return response($response, 200);
     }
 
+    /**
+     * @param Illuminate\Http\Request object
+     * validate the input sign in the user
+     * @return json object with token and user
+     */
     public function login (Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
@@ -46,20 +56,33 @@ class AuthController extends Controller
         }
         $user = User::where('email', $request->email)->first();
         if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token, 'user' => $user];
-                return response($response, 200);
-            } else {
-                $response = ["message" => "Incorrect Password!"];
+            if(!$user->spammer) {
+                if (Hash::check($request->password, $user->password)) {
+                    $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                    $response = ['token' => $token, 'user' => $user, 'success' => true, 'message' => 'You are successfully logged in.'];
+                    return response($response, 200);
+                }
+                else {
+                    $response = ["message" => "Incorrect Password!"];
+                    return response($response, 401);
+                }
+            }
+            else {
+                $response = ["message" => "Account has been suspended due to spamming!"];
                 return response($response, 401);
             }
-        } else {
+        }
+        else {
             $response = ["message" =>'User does not exist!'];
             return response($response, 401);
         }
     }
 
+    /**
+     * @param Illuminate\Http\Request object
+     * revoke and delete the granted token to the user effectively logging out the user
+     * @return json object with success message
+     */
     public function logout (Request $request) {
         $token = $request->user()->token();
         $token->revoke();

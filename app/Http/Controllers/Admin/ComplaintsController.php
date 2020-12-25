@@ -18,7 +18,10 @@ class ComplaintsController extends Controller
     public function index() {
         $admin = Auth::guard('employee')->user();
         return view('admin.complaints.index', [
-            'complaints' => Complaint::where('station_id', $admin->station_id)->get()->groupBy('type'),
+            'complaints' => Complaint::where([
+                ['station_id', $admin->station_id],
+                ['is_spam', false]
+            ])->get()->groupBy('type'),
             'available_police' => Employee::availablePolice($admin->station_id)
         ]);
     }
@@ -59,12 +62,7 @@ class ComplaintsController extends Controller
      */
     public function assignCase($complaint_id, $police_id) {
         $complaint = Complaint::findOrFail($complaint_id);
-        $police = Employee::findOrFail($police_id);
-        $complaint->police_id = $police->id;
-        $complaint->status = 'under_investigation';
-        $police->is_available = false;
-        $complaint->save();
-        $police->save();
+        $complaint->underInvestigation($police_id);
         $complaint->finding()->create();
         return back()->with('success', true);
     }

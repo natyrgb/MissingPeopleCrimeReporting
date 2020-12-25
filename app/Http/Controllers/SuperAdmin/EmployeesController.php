@@ -11,6 +11,9 @@ use Illuminate\Validation\Rule;
 
 class EmployeesController extends Controller
 {
+    /**
+     * @return redirect to view of employees index with employees object
+     */
     public function index() {
         return view('superadmin.employees.index', ['employees' => Employee::all()]);
     }
@@ -32,8 +35,8 @@ class EmployeesController extends Controller
     public function store(Request $request) {
         $request->validate([
             'name' => 'required|string',
-            'station' => 'required|integer|exists:stations,id',
-            'department' => 'nullable|integer|exists:departments,id',
+            'station_id' => 'required|integer|exists:stations,id',
+            'department_id' => 'nullable|integer|exists:departments,id',
             'role' => [
                 'required',
                 Rule::in(['POLICE', 'ATTORNEY', 'ADMIN', 'SUPERADMIN'])
@@ -41,17 +44,10 @@ class EmployeesController extends Controller
             'email' => 'required|email|unique:employees,email',
             'phone' => 'required|string|unique:employees,phone',
         ]);
-        Employee::create([
-            'employee_id' => substr($request['role'], 0, 3) . strval(Employee::count()),
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'phone' => $request['phone'],
-            'password' => Hash::make('secret'),
-            'station_id' => $request['station'],
-            'department_id' => $request['department'] == 0 ? null : $request['department'],
-            'role' => $request['role'],
-            'is_available' => true
-        ]);
+        $request['employee_id'] = substr($request['role'], 0, 3) . strval(Employee::count());
+        $request['is_available'] = true;
+        $request['password'] = Hash::make('secret');
+        Employee::create($request->all());
         return redirect()->route('superadmin.employees.index')->with('success',true);
     }
 
@@ -91,14 +87,7 @@ class EmployeesController extends Controller
                 Rule::unique('employees')->ignore($employee)
             ],
         ]);
-        $employee->fill([
-            'name' => $request['name'],
-            'station_id' => $request['station'],
-            'department_id' => $request['department'] != null ? $request['department'] : null,
-            'role' => $request['role'],
-            'email' => $request['email'],
-            'phone' => $request['phone']
-        ]);
+        $employee->fill($request->all());
         $employee->save();
         return redirect()->route('superadmin.employees.index')->with('success',true);
     }

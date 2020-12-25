@@ -11,11 +11,20 @@ use Illuminate\Validation\Rule;
 
 class ComplaintsController extends Controller
 {
+    /**
+     * @param Illuminate\Http\Request object
+     * @return json object of complaints made by the user
+     */
     public function index(Request $request) {
         $my_complaints = Complaint::where('user_id', $request->user()->id)->get();
         return response()->json(['my_complaints' => $my_complaints], 200);
     }
 
+    /**
+     * @param Illuminate\Http\Request object
+     * validates the input and create complaints entry
+     * @return json object of complaints made by the user and success message
+     */
     public function store(Request $request) {
         $crime = ['robbery', 'homicide', 'domestic_abuse', 'assault', 'burglary', 'narcotics', 'sex_crime', 'other'];
         $validator = Validator::make($request->all(), [
@@ -34,21 +43,14 @@ class ComplaintsController extends Controller
             ], 422);
         }
         $user = $request->user();
-        $complaint = $user->complaints()->create([
-            'station_id' => $request['station_id'],
-            'woreda' => $request['woreda'],
-            'type' => $request['type'],
-            'details' => $request['details']
-        ]);
+        $complaint = $user->complaints()->create($request->all());
         if($request->hasFile('image')) {
-            $file = $request->file('image');               // you can also use the original name
-            $imageName = time().'-'.$file->getClientOriginalName();
-            $file->move(public_path('images/complaints'), $imageName);
-            $complaint->attachment()->create([
+            $attachment = $complaint->attachment()->create([
                 'attachable_id' => $complaint->id,
                 'attachable_type' => 'complaints',
-                'url' => 'images/complaints/'.$imageName
+                'url' => 'images/complaints/'
             ]);
+            $attachment->saveFile($request->file('image'));
         }
         $my_complaints = Complaint::where('user_id', $request->user()->id)->get();
         return response()->json([
@@ -56,12 +58,4 @@ class ComplaintsController extends Controller
             'my_complaints' => $my_complaints
         ], 200);
     }
-
-    public function show(Complaint $complaint) {
-        return response()->json(['complaint' => $complaint], 200);
-    }
-
-    public function update(Request $request, Complaint $complaint) {}
-
-    public function destroy(Request $request, Complaint $complaint) {}
 }

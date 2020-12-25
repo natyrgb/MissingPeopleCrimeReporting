@@ -12,26 +12,28 @@ class EmployeeLoginController extends Controller
 
     use AuthenticatesUsers;
 
+    // constructs the controller with the guest middleware
     public function __construct() {
       $this->middleware('guest')->except('logout');
     }
 
+    // specify that the guard is employee, since we are using employees table instead of users table
     public function guard() {
      return Auth::guard('employee');
     }
 
+    //returns view of employee login
     public function showLoginForm() {
         return view('auth.emp_login');
     }
+
+    // override the redirectTo method to return appropriate url
     protected function redirectTo() {
-        if(Auth::guard('employee')->user()->role=='SUPERADMIN'){
-            return '/superadmin/home';
-        }elseif(Auth::guard('employee')->user()->role=='ADMIN'){
-            return '/admin/home';
-        }elseif(Auth::guard('employee')->user()->role=='POLICE'){
-            return '/police/home';
-        }elseif(Auth::guard('employee')->user()->role=='ATTORNEY'){
-            return '/attorney/home';
+        $employee = Auth::guard('employee')->user();
+        if(!$employee->password_changed) {
+            return '/employee/edit_account';
         }
+        else
+        return redirect('/'.strtolower($employee->role).'/home');
     }
 }

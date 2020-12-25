@@ -29,8 +29,9 @@ class MissingPerson extends Model
 
     // returns new missing people in the station idenified by station_id
     public static function newMissingFromStation($station_id) {
+        $station = Station::find($station_id);
         return MissingPerson::where([
-            ['station_id', $station_id],
+            ['woreda', $station->woreda],
             ['status', 'new']
         ])->get();
     }
@@ -39,7 +40,7 @@ class MissingPerson extends Model
     public static function userMissing($user_id) {
         return MissingPerson::where([
             ['user_id', $user_id],
-            ['status', '<>', 'found']
+            ['status', '<>', 'seen']
         ])->get();
     }
 

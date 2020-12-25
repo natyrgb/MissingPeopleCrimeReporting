@@ -33,21 +33,21 @@
                         </div>
                         <div class="form-group">
                             <label for="station">Station</label>
-                            <select required class="form-control" id="station" name="station" aria-describedby="stationHelp">
+                            <select required class="form-control" id="station" name="station_id" aria-describedby="stationHelp">
                                 @foreach ($stations as $item)
                                     @if ($item->id != 1)
-                                        <option value="{{$item->id}}" data-deps="{{$item->departments}}">{{$item->name}}</option>
+                                        <option @if($item->id==2) selected @endif value="{{$item->id}}" data-deps="{{$item->departments}}">{{$item->name}}</option>
                                     @endif
                                 @endforeach
                             </select>
-                            @error('station')
+                            @error('station_id')
                                 <small id="stationHelp" class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="role">Role</label>
                             <select required class="form-control" id="role" name="role" aria-describedby="roleHelp">
-                                <option value="ATTORNEY">Attorney</option>
+                                <option selected value="ATTORNEY">Attorney</option>
                                 <option value="POLICE">Police</option>
                             </select>
                             @error('role')
@@ -73,6 +73,12 @@
  @section('js')
      <script>
          $(document).ready(function() {
+            $('#dep_group').hide();
+            let st = $('#station option:selected').data('deps');
+            for(let dep in st) {
+                let deps = st[dep];
+                $('#department').append('<option value='+deps.id+'>'+makeTitle(deps.name)+'</option>');
+            }
             $('#role').change(function() {
                 let role = $('#role option:selected').val();
                 if(role == 'ATTORNEY')
@@ -83,9 +89,7 @@
          });
          $(function() {
             $('#station').change(function() {
-                console.log('object');
                 let st = $('#station option:selected').data('deps');
-                console.log(st);
                 $('#department').children().remove();
                 for(let dep in st) {
                     let deps = st[dep];

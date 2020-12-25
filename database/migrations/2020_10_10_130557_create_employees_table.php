@@ -24,6 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->boolean('is_available')->nullable();
+            $table->boolean('password_changed')->default(false);
             $table->rememberToken();
             $table->timestamps();
 

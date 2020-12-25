@@ -2020,7 +2020,6 @@ __webpack_require__.r(__webpack_exports__);
           title: 'Oops...',
           text: err.response.data.message
         });
-        currentObj.form.errors = err.response.data.errors;
       });
     }
   }
@@ -74936,6 +74935,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var path = 'http://192.168.1.103:8000/api';
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     status: '',
@@ -74965,13 +74965,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       return new Promise(function (resolve, reject) {
         commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_2___default()({
-          url: 'http://localhost:8000/api/login',
+          url: "".concat(path, "/login"),
           data: user,
           method: 'POST'
         }).then(function (resp) {
           var token = resp.data.token;
           var user = resp.data.user;
-          console.log(user);
           localStorage.setItem('token', token);
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + token;
           commit('auth_success', token, user);
@@ -74988,7 +74987,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       return new Promise(function (resolve, reject) {
         commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_2___default()({
-          url: 'http://localhost:8000/api/register',
+          url: "".concat(path, "/register"),
           data: user,
           method: 'POST'
         }).then(function (resp) {
@@ -75010,7 +75009,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       return new Promise(function (resolve, reject) {
         commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_2___default()({
-          url: 'http://localhost:8000/api/logout',
+          url: "".concat(path, "/logout"),
           method: 'POST'
         }).then(function (resp) {
           commit('logout');

@@ -11,18 +11,35 @@ use Illuminate\Support\Facades\Validator;
 
 class MissingPeopleController extends Controller
 {
+    /**
+     * @param Illuminate\Http\Request object
+     * @return json object of missing people reported by the user
+     */
     public function index(Request $request) {
         $my_missing = MissingPerson::userMissing($request->user()->id);
         return response()->json(['my_missing' => $my_missing], 200);
     }
 
+    /**
+     * @param Illuminate\Http\Request,App\Models\MissingPerson object
+     * updates the missingPerson object as seen
+     * @return json object of missing people reported by the user and success message
+     */
     public function foundByUser(Request $request, MissingPerson $missingPerson) {
         $user = $request->user();
-        $missingPerson->status = 'found';
+        $missingPerson->status = 'seen';
         $missingPerson->save();
-        return response(['my_missing' => MissingPerson::userMissing($user->id)], 200);
+        return response([
+            'my_missing' => MissingPerson::userMissing($user->id),
+            'success' => true
+        ], 200);
     }
 
+    /**
+     * @param Illuminate\Http\Request object
+     * validates the input and create missing_person entry
+     * @return json object of complaints made by the user and success message
+     */
     public function store(Request $request) {
         $user = $request->user();
         $request->validate([
@@ -32,31 +49,19 @@ class MissingPeopleController extends Controller
             'woreda' => 'required|integer|exists:stations,id',
             'date' => 'required|date'
         ]);
-        $missing_person = $user->missingPeople()->create([
-            'station_id' => $request['woreda'],
-            'name' => $request['name'],
-            'description' => $request['description'],
-            'time' => $request['date']
-        ]);
+        $request['time'] = $request['date'];
+        $missing_person = $user->missingPeople()->create($request->all());
         if($request->hasFile('image')) {
-            $file = $request->file('image');               // you can also use the original name
-            $imageName = time().'-'.$file->getClientOriginalName();
-            $file->move(public_path('images/missing_people'), $imageName);
-            $missing_person->attachment()->create([
+            $attachment = $missing_person->attachment()->create([
                 'attachable_id' => $missing_person->id,
                 'attachable_type' => 'missing_people',
-                'url' => 'images/missing_people/'.$imageName
+                'url' => ' '
             ]);
+            $attachment->saveFile($request->file('image'));
         }
         return response()->json([
             'success' => true,
             'my_missing' => MissingPerson::userMissing($user->id)
         ], 200);
     }
-
-    public function show(MissingPerson $missingPerson) {}
-
-    public function update(Request $request, MissingPerson $missingPerson) { }
-
-    public function destroy(MissingPerson $missingPerson) {}
 }

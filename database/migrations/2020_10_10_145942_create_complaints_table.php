@@ -21,6 +21,7 @@ class CreateComplaintsTable extends Migration
             $table->enum('type', ['robbery', 'homicide', 'assault', 'burglary', 'narcotics']);
             $table->text('details');
             $table->enum('status', ['new', 'under_investigation', 'in_court', 'solved'])->default('new');
+            $table->boolean('is_spam')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('woreda');
             $table->string('user_image')->nullable();
             $table->string('password');
+            $table->boolean('spammer')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -15,7 +15,12 @@ use Illuminate\Validation\Rule;
 
 class ComplaintsController extends Controller
 {
-    public function add_suspect(Request $request, Finding $finding) {
+    /**
+     * @param Illuminate\Http\Request,App\Models\Finding objects
+     * validates and create a suspect
+     * @return redirect back with success
+     */
+    public function addSuspect(Request $request, Finding $finding) {
         $request->validate([
             'name' => 'required|string',
             'address' => 'nullable|string',
@@ -30,10 +35,15 @@ class ComplaintsController extends Controller
                 Rule::in(['wanted', 'in_custody'])
             ]
         ]);
-        $finding->suspects()->create($request->except('token'));
+        $finding->suspects()->create($request->except('_token'));
         return back()->with('success', true);
     }
 
+    /**
+     * @param suspect_id
+     * updates the suspect as in_custody
+     * @return redirect back with success
+     */
     public function markInCustody($suspect_id) {
         $suspect = Suspect::findOrFail($suspect_id);
         $suspect->status = 'in_custody';
@@ -41,28 +51,47 @@ class ComplaintsController extends Controller
         return back()->with('success', true);
     }
 
-    public function add_file(Request $request, Finding $finding) {
+    /**
+     * @param Illuminate\Http\Request,App\Models\Finding objects
+     * validates and create a attchment file for the finding
+     * @return redirect back with success
+     */
+    public function addFile(Request $request, Finding $finding) {
         $request->validate([
             'url' => 'nullable|mimes:jpg,jpeg,png,bmp,docx,pdf,doc|max:3000'
         ]);
-        $file = $request->file('url');               // you can also use the original name
-        $imageName = time().'-'.$file->getClientOriginalName();
-        $file->move(public_path('images/findings'), $imageName);
-        $finding->attachments()->create(['url' => 'images/findings/'.$imageName]);
+        $attachment = $finding->attachments()->create(['url' => '']);
+        $attachment->saveFile($request->file('url'));
         return back()->with('success', true);
     }
 
-    public function delete_suspect(Suspect $suspect) {
+    /**
+     * @param App\Models\Suspect objects
+     * deletes wrongly accused suspect
+     * @return redirect back with success
+     */
+    public function deleteSuspect(Suspect $suspect) {
         $suspect->delete();
         return back()->with('success', true);
     }
 
-    public function delete_file(Attachment $attachment) {
+    /**
+     * @param App\Models\Attachment objects
+     * deletes wrong file
+     * @return redirect back with success
+     */
+    public function deleteFile(Attachment $attachment) {
         $attachment->delete();
         return back()->with('success', true);
     }
 
-    public function send_to_court(Request $request, Finding $finding) {
+    /**
+     * @param App\Models\Finding objects
+     * change the status of the complaint to in_court
+     * then assign case to the first available attorney or the attorney with least cases
+     * @return redirect back with success
+     */
+    public function sendToCourt(Finding $finding) {
         $station = Auth::guard('employee')->user()->station;
         $attorneys_ava = $station->attorneys()->where('is_available', true);
         $attorneys = $station->attorneys();
@@ -88,10 +117,7 @@ class ComplaintsController extends Controller
             $the_attorney->save();
             $finding->save();
         }
-        $finding->complaint->status = 'in_court';
-        $finding->complaint->police->is_available = true;
-        $finding->complaint->police->save();
-        $finding->complaint->save();
+        $finding->complaint->inCourt();
         $finding->save();
         return back()->with('success', true);
     }

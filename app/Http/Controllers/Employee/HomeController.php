@@ -10,28 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    // if not authenticated redirect to login page, else redirect to home page of the employee
     public function redirectToIntended() {
         if(Auth::guard('employee')->user()) {
-            if(Auth::guard('employee')->user()->role=='SUPERADMIN'){
-                return redirect()->route('superadmin.home');
-            }elseif(Auth::guard('employee')->user()->role=='ADMIN'){
-                return redirect()->route('admin.home');
-            }elseif(Auth::guard('employee')->user()->role=='POLICE'){
-                return redirect('/police/home');
-            }elseif(Auth::guard('employee')->user()->role=='ATTORNEY'){
-                return redirect()->route('attorney.home');
-            }
+            $employee = Auth::guard('employee')->user();
+            if(!$employee->password_changed)
+                return redirect()->route('employee.edit_account');
+            else
+                return redirect('/'.strtolower($employee->role).'/home');
         }else{
             return redirect()->route('employee.login');
         }
-    }
-    public function index() {
-        return view('employee.home');
-    }
-    public function users() {
-        return view('employee.users', ['users' => User::all()]);
-    }
-    public function complaints() {
-        return view('employee.complaints', ['complaints' => Complaint::all()]);
     }
 }

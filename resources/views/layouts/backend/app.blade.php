@@ -20,8 +20,13 @@
         @include('layouts.backend.nav')
         @php
             $emp = explode(".", Route::currentRouteName())[0];
+            if(Route::currentRouteName() == 'employee.edit_account')
+            $emp = strtolower($employee->role);
         @endphp
-        @include("layouts.backend.sidebars.$emp")
+
+        @if(Auth::guard('employee')->user()->password_changed == true)
+            @include("layouts.backend.sidebars.$emp")
+        @endif
 
         @yield('content')
 

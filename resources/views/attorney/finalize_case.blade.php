@@ -24,7 +24,7 @@
                             <div class="row px-4">
                                 <div class="col-md-4">
                                     <figure>
-                                        <img src="{{asset('images/'.$finding->complaint->attachment->url)}}" alt="" class="img-fluid">
+                                        <img src="{{asset($finding->complaint->attachment->url)}}" alt="" class="img-fluid">
                                         <figcaption><strong>Evidence</strong></figcaption>
                                     </figure>
                                 </div>
@@ -72,25 +72,23 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($finding->suspects as $item)
-                                                    <tr>
-                                                        <th scope="row">{{$item->name}}</th>
-                                                        <td>{{$item->verdict}}</td>
-                                                        <td>
-                                                            <form action="{{route('attorney.give_verdict', [$finding, $item])}}" method="post">
-                                                                @csrf
-                                                                @method('PUT')
+                                                    @if ($item->verdict == 'under_investigation')
+                                                        <tr>
+                                                            <th scope="row">{{$item->name}}</th>
+                                                            <td>{{ucwords(str_replace('_', ' ', $item->verdict))}}</td>
+                                                            <td>
                                                                 <div class="form-group">
-                                                                    <label for="verdict">Verdict</label>
-                                                                    <select name="verdict" id="verdict" class="form-control">
+                                                                    <label for="{{$item->id}}">Verdict</label>
+                                                                    <select name="verdict" id="{{$item->id}}" class="form-control verdict">
                                                                         <option @if($item->verdict == 'under_investigation') selected @endif value="under_investigation">Under Investigation</option>
                                                                         <option @if($item->verdict == 'guilty') selected @endif value="guilty">Guilty</option>
                                                                         <option @if($item->verdict == 'not_guilty') selected @endif value="not_guilty">Not Guilty</option>
                                                                     </select>
                                                                 </div>
-                                                                <button type="submit" class="btn btn-success">Give Verdict</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
+                                                                <a href="/attorney/give_verdict/{{$item->id}}" id="link{{$item->id}}"></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -100,7 +98,7 @@
                         </div>
                         <div class="tab-pane fade" id="files{{$finding->id}}" role="tabpanel" aria-labelledby="files-tab{{$finding->id}}">
                             <div class="row d-flex justify-content-center mb-5">
-                                <a href="#" class="btn btn-success btn-xl">Finalize Case</a>
+                                <a href="{{route('attorney.close_case', $finding)}}" class="btn btn-success btn-xl">Close Case</a>
                             </div>
                             <div class="card card-danger">
                                 <h3 class="card-header">Existing Files</h3>
@@ -141,4 +139,24 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+    <script>
+        $(document).on('change', '.verdict', function() {
+            let id = parseInt(this.id);
+            let locator = `#link${id}`;
+            let link = $(locator).attr('href');
+            $(locator).attr('href', link+'/'+this.value)
+            $(locator)[0].click();
+        });
+    </script>
+
+    @if(session()->has('error'))
+    <script>
+        $(document).ready(function() {
+            Swal.fire('Error', "{{session('message')}}", 'error');
+        })
+    </script>
+    @endif()
 @endsection

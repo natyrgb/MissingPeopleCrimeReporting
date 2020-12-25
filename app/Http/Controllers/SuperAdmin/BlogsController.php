@@ -25,7 +25,7 @@ class BlogsController extends Controller
 
     /**
      * @param Illuminate\Http\Request object
-     * validates and create blogs entry
+     * validates and create blogs entry, and triggers the BlogAdded event
      * @return redirect to view of blogs index with success message
      */
     public function store(Request $request) {
@@ -34,15 +34,8 @@ class BlogsController extends Controller
             'article' => 'required|string',
             'url' => 'required|file|image|max:4000'
         ]);
-        $date = Carbon::createFromFormat('Y-m-d H:i:s', now())->format('d-m-Y');
-        $file = $request->file('url');               // you can also use the original name
-        $imageName = time().'-'.$file->getClientOriginalName();
-        $file->move(public_path("images/blogs/$date/"), $imageName);
-        Blog::create([
-            'article' => $request['article'],
-            'title' => $request['title'],
-            'url' => "images/blogs/$date/".$imageName
-        ]);
+        $blog = Blog::create($request->all());
+        $blog->saveFile($request->file('url'));
         event(new \App\Events\BlogAdded());
         return redirect()->route('superadmin.blogs.index')->with(['success' => true]);
     }
@@ -69,11 +62,7 @@ class BlogsController extends Controller
             'url' => 'nullable|file|image|max:2000'
         ]);
         if($request->hasFile('url')) {
-            $date = Carbon::createFromFormat('Y-m-d H:i:s', now())->format('d-m-Y');
-            $file = $request->file('url');               // you can also use the original name
-            $imageName = time().'-'.$file->getClientOriginalName();
-            $file->move(public_path("images/blogs/$date/"), $imageName);
-            $blog->url = "images/blogs/$date/".$imageName;
+            $blog->saveFile($request->file('url'));
         }
         $blog->title = $request['title'];
         $blog->article = $request['article'];

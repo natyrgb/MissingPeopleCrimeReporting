@@ -77,7 +77,8 @@ class Employee extends Authenticatable
     public function policeCase() {
         $case = Complaint::where([
             ['police_id', $this->id],
-            ['status', 'under_investigation']
+            ['status', 'under_investigation'],
+            ['is_spam', false]
         ])->first();
         if($case == null)
             return null;

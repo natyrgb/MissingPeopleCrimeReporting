@@ -17,7 +17,7 @@ class MissingPeopleController extends Controller
     public function index() {
         $admin = Auth::guard('employee')->user();
         return view('admin.missing_people.index', [
-            'missing_people' => MissingPerson::where('station_id', $admin->station_id)->get(),
+            'missing_people' => MissingPerson::where('woreda', $admin->station->woreda)->get(),
             'available_police' => Employee::availablePolice($admin->station_id)
         ]);
     }
@@ -38,7 +38,7 @@ class MissingPeopleController extends Controller
      * check if the sent missing_person id exists and assign the
      * @return redirect to view of employees index with success
      */
-    public function mark_found($missing_id) {
+    public function markFound($missing_id) {
         $missing = MissingPerson::findOrFail($missing_id);
         $missing->status = 'found';
         $missing->save();

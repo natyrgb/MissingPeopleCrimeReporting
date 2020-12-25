@@ -50,15 +50,6 @@
             <div class="card card-success">
                 <h3 class="card-header">Add Suspect</h3>
                 <div class="card-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <form action="{{route('police.add_suspect', [$finding])}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">

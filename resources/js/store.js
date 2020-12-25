@@ -4,11 +4,12 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+var path = 'http://192.168.1.103:8000/api'
 export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    user : {}
+    user : {},
   },
   mutations: {
     auth_request(state){
@@ -31,11 +32,10 @@ export default new Vuex.Store({
     login({commit}, user) {
         return new Promise((resolve, reject) => {
           commit('auth_request')
-          axios({url: 'http://localhost:8000/api/login', data: user, method: 'POST' })
+          axios({url: `${path}/login`, data: user, method: 'POST' })
           .then(resp => {
             const token = resp.data.token
             const user = resp.data.user
-            console.log(user);
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = 'Bearer '+token
             commit('auth_success', token, user)
@@ -51,7 +51,7 @@ export default new Vuex.Store({
     register({commit}, user){
         return new Promise((resolve, reject) => {
           commit('auth_request')
-          axios({url: 'http://localhost:8000/api/register', data: user, method: 'POST' })
+          axios({url: `${path}/register`, data: user, method: 'POST' })
           .then(resp => {
             const token = resp.data.token
             const user = resp.data.user
@@ -70,7 +70,7 @@ export default new Vuex.Store({
     logout({commit}){
         return new Promise((resolve, reject) => {
             commit('auth_request')
-            axios({url: 'http://localhost:8000/api/logout', method: 'POST'})
+            axios({url: `${path}/logout`, method: 'POST'})
             .then(resp => {
                 commit('logout')
                 localStorage.removeItem('token')

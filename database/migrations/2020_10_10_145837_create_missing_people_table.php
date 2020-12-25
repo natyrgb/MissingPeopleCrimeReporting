@@ -16,17 +16,16 @@ class CreateMissingPeopleTable extends Migration
         Schema::create('missing_people', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('station_id');
+            $table->unsignedBigInteger('woreda');
             $table->unsignedBigInteger('police_id')->nullable();
             $table->string('name');
             $table->text('description');
             $table->dateTime('time');
-            $table->enum('status', ['found', 'missing', 'new'])->default('new');
+            $table->enum('status', ['found', 'missing', 'new', 'seen'])->default('new');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('police_id')->references('id')->on('employees');
-            $table->foreign('station_id')->references('id')->on('stations');
         });
     }
 

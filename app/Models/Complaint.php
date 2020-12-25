@@ -41,7 +41,8 @@ class Complaint extends Model
     public static function newComplaints($station_id) {
         return Complaint::where([
             ['station_id', $station_id],
-            ['status', 'new']
+            ['status', 'new'],
+            ['is_spam', false]
         ])->get();
     }
 
@@ -50,5 +51,33 @@ class Complaint extends Model
         $this->attachment()->delete();
         $this->finding()->delete();
         return parent::delete();
+    }
+
+    // makes the police available and change the cases status to in_court
+    public function inCourt() {
+        $this->police->is_available = true;
+        $this->police->save();
+        $this->status = 'in_court';
+        $this->save();
+    }
+
+    // change the complaint status from new to under investigation and assign police
+    public function underInvestigation($police_id) {
+        $police = Employee::find($police_id);
+        $this->police_id = $police_id;
+        $this->status = 'under_investigation';
+        $police->is_available = false;
+        $police->save();
+        $this->save();
+    }
+
+    // report a spam complaint and revoke spammer's account
+    public function reportSpam() {
+        $this->user->spammer = true;
+        $this->user->save();
+        $this->police->is_available = true;
+        $this->police->save();
+        $this->is_spam = true;
+        $this->save();
     }
 }

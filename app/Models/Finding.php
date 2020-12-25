@@ -48,4 +48,19 @@ class Finding extends Model
             return collect($open_cases);
         }
     }
+    public static function closedCasesForAttorney($attorney_id) {
+        $findings = Finding::where('attorney_id', $attorney_id)->get();
+        $closed_cases = [];
+        if(!$findings->count()) {
+            return null;
+        }
+        else {
+            foreach($findings as $finding) {
+                if($finding->complaint->status == 'solved') {
+                    array_push($closed_cases, $finding);
+                }
+            }
+            return collect($closed_cases);
+        }
+    }
 }

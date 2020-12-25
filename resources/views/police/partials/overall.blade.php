@@ -21,6 +21,9 @@
                     <strong>Crime Details: </strong>
                     <span>{{$case->details}}</span>
                 </li>
+                <li class="list-group-item">
+                    <a href="{{route('police.report_spam', [$case])}}" class="btn btn-danger">Report Spam</a>
+                </li>
             </ul>
         </div>
     </div>

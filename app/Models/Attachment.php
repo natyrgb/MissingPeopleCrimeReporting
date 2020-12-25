@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Attachment extends Model
 {
@@ -24,5 +25,15 @@ class Attachment extends Model
         if($path)
         unlink($path);
         return parent::delete();
+    }
+
+    // used to save the file to the attachment
+    public function saveFile(UploadedFile $file) {
+        $imageName = time().'-'.$file->getClientOriginalName();
+        $attachable_type = explode('\\', $this->attachable_type)[sizeof(explode('\\', $this->attachable_type))-1];
+        $folder = str_slug($attachable_type);
+        $file->move(public_path("images/$folder"), $imageName);
+        $this->url = "images/$folder/".$imageName;
+        $this->save();
     }
 }
