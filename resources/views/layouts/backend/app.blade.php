@@ -60,11 +60,11 @@
     </div>
 
     <script src="{{ asset('js/admin.js') }}"></script>
-    <script src="{{asset('js/echarts.min.js')}}"></script>
-    <script src="{{asset('js/chartisan_echarts.js')}}"></script>
     <script>
         $(document).ready(function() {
-            $('table.datatable-custom').DataTable();
+            $('table.datatable-custom').DataTable({
+                "responsive": true
+            });
             $('a[data-toggle="tooltip"]').tooltip({
                 animated: 'fade',
                 placement: 'bottom',

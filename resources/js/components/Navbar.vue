@@ -95,6 +95,13 @@
               >Login</router-link
             >
           </li>
+          <li v-if="!isLoggedIn" class="nav-item" id="register">
+            <router-link
+                class="nav-link js-scroll-trigger"
+                to="/api/register"
+                >Register Here!</router-link
+            >
+        </li>
         </ul>
       </div>
     </div>

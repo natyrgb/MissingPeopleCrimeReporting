@@ -66,7 +66,7 @@
             </div>
             <div class="modal-body">
                 @if ($station->employees->count())
-                    <table id="datatable_emp" class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped datatable-custom">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -104,12 +104,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $('#datatable_emp').DataTable();
-        });
-    </script>
 @endsection

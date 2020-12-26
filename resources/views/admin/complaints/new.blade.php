@@ -33,7 +33,7 @@
                                 @endphp
                                 @foreach ($complaints as $type => $typed_complaints)
                                     <div class="tab-pane fade @if($j==0) show active @endif" id="{{$type}}" role="tabpanel" aria-labelledby="{{$type}}-tab">
-                                        <table class="datatable-custom table table-bordered table-striped">
+                                        <table class="datatable-custom table table-responsive table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Id</th>
@@ -99,7 +99,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table id="datatable_emp" class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped datatable-custom">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -131,9 +131,8 @@
                     $.each(employees[0], function(i, employee) {
                         let r ='<tr><td scope="col">'+(++i)+'</td><td>'+employee.name+'</td><td>'+employee.role+'</td><td>'+employee.department.name+'</td>';
                         r += '<td><a class="btn btn-success" href="/admin/complaints/assign_case/'+complaint+'/'+employee.id+'">Assign</a></td>'
-                        $('#datatable_emp > tbody').append(r);
+                        $('#police table > tbody').append(r);
                     });
-                    $('#datatable_emp').DataTable();
                     var myModal = new bootstrap.Modal(document.getElementById("police"), {});
                     myModal.show();
                 },

@@ -1917,11 +1917,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     isLoggedIn: function isLoggedIn() {
@@ -2641,6 +2636,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48038,32 +48040,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("header", { staticClass: "masthead" }, [
-    _c(
-      "div",
-      { staticClass: "container", attrs: { id: "app" } },
-      [
-        _c("div", { staticClass: "masthead-subheading" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "masthead-heading text-uppercase" }),
-        _vm._v(" "),
-        !_vm.isLoggedin
-          ? _c(
-              "router-link",
-              {
-                staticClass:
-                  "btn btn-primary btn-xl text-uppercase js-scroll-trigger",
-                attrs: { to: "/api/register" }
-              },
-              [_vm._v("Register Here!")]
-            )
-          : _vm._e()
-      ],
-      1
-    )
-  ])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "masthead" }, [
+      _c("div", { staticClass: "container", attrs: { id: "app" } }, [
+        _c("div", { staticClass: "masthead-subheading" }, [
+          _vm._v("Missing People And Crime Reporting System")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "masthead-heading text-uppercase" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -49326,6 +49320,24 @@ var render = function() {
                           attrs: { to: "/api/login" }
                         },
                         [_vm._v("Login")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.isLoggedIn
+                ? _c(
+                    "li",
+                    { staticClass: "nav-item", attrs: { id: "register" } },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link js-scroll-trigger",
+                          attrs: { to: "/api/register" }
+                        },
+                        [_vm._v("Register Here!")]
                       )
                     ],
                     1

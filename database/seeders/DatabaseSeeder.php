@@ -107,60 +107,6 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('secret'),
                 'woreda' => $i
             ]);
-            $station = Station::find($i);
-
-            for($j = 0; $j < 6; $j++) {
-                $user->complaints()->create([
-                    'station_id' => $station->id,
-                    'type' => $departments[random_int(0,4)],
-                    'details' => $faker->paragraph(5),
-                    'created_at' => $faker->dateTimeThisYear
-                ]);
-                /*
-                $path = 'images/complaint';
-                $complaint->attachment()->create([
-                    'attachable_id' => $complaint->id,
-                    'attachable_type' => 'complaints',
-                    'url' => $faker->image(public_path($path), 400, 300, null, false)
-                ]);*/
-
-                $user->missingPeople()->create([
-                    'name' => $faker->name,
-                    'description' => $faker->paragraph(5),
-                    'time' => $faker->dateTimeThisYear,
-                    'created_at' => $faker->dateTimeThisYear,
-                    'woreda' => $station->woreda
-                ]);
-                /*
-                $path = 'images/missingperson';
-                $missing->attachment()->create([
-                    'attachable_id' => $missing->id,
-                    'attachable_type' => 'missing_people',
-                    'url' => $faker->image(public_path($path), 400, 300, null, false)
-                ]);*/
-            }
         }
-        /*
-        $path = 'images/criminal';
-        for($i = 0; $i < 4; $i++) {
-            Criminal::create([
-                'citizen_id' => $faker->bankAccountNumber,
-                'name' => $faker->name,
-                'birthdate' => $faker->date('Y-m-d', '2002-01-01'),
-                'gender' => 'male',
-                'address' => $faker->address,
-                'occupation' => 'unemployed',
-                'mugshot1' => $faker->image(public_path($path), 400, 300, null, false)
-            ]);
-        }
-        $path = 'images/blog';
-        for($i = 0; $i < 4; $i++) {
-            Blog::create([
-                'title' => $faker->title,
-                'url' => $faker->image(public_path($path), 400, 300, null, false),
-                'article' => $faker->paragraph(6),
-                'created_at' => $faker->dateTimeThisWeek
-            ]);
-        }*/
     }
 }

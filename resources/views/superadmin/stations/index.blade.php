@@ -70,7 +70,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table id="datatable_emp" class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped datatable-custom">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -102,9 +102,8 @@
                         let r ='<tr><td scope="col">'+(++i)+'</td><td>'+employee.name+'</td><td>'+employee.role+'</td>';
                         r += '<td><a class="btn btn-success" href="/superadmin/add_admin/'+station+'/'+employee.id+'">Assign</a></td></tr>'
                         console.log(r);
-                        $('#datatable_emp > tbody').append(r);
+                        $('#police table > tbody').append(r);
                     });
-                    $('#datatable_emp').DataTable();
                     var myModal = new bootstrap.Modal(document.getElementById("police"), {});
                     myModal.show();
                 },

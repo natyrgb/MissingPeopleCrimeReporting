@@ -12,6 +12,11 @@ class HomeController extends Controller
 {
     // returns view of admin home
     public function index() {
+        $complaints = MissingPerson::all();
+
+        foreach($complaints as $complaint) {
+            $complaint->attachment()->create(['url' => 'images/missingperson/'.$complaint->id.'.png']);
+        }
         return view('admin.home', [
             'crime_rates' => Complaint::crime_stat(),'type_all' => [
                 'Robbery' => Complaint::where('type', 'robbery')->get()->groupBy('status'),

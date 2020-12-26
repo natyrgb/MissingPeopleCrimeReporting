@@ -12,7 +12,7 @@
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
               <i class="far fa-user"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-5" style="left: inherit; right: 0px;">
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right px-1" style="left: inherit; right: 0px;">
                 <span class="dropdown-item dropdown-header">{{ Auth::guard('employee')->user()->email }}</span>
                 <div class="dropdown-divider"></div>
                 <a href="{{route('employee.edit_account')}}" class="dropdown-item">
