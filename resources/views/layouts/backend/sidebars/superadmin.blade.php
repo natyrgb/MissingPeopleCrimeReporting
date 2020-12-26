@@ -95,11 +95,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('employee.edit_account')}}" class="nav-link @if($route == 'employee.edit_account') active @endif">
-                        <i class="far fa-eye nav-icon"></i><p>Edit Account</p>
-                    </a>
-                </li>
             </ul>
         </nav>
     </div>

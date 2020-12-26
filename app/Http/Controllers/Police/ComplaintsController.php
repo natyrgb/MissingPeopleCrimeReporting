@@ -35,7 +35,9 @@ class ComplaintsController extends Controller
                 Rule::in(['wanted', 'in_custody'])
             ]
         ]);
-        $finding->suspects()->create($request->except('_token'));
+        $suspect = $finding->suspects()->create($request->except('_token'));
+        if($request->hasFile('image'))
+            $suspect->saveImage($request->file('image'));
         return back()->with('success', true);
     }
 
@@ -58,7 +60,7 @@ class ComplaintsController extends Controller
      */
     public function addFile(Request $request, Finding $finding) {
         $request->validate([
-            'url' => 'nullable|mimes:jpg,jpeg,png,bmp,docx,pdf,doc|max:3000'
+            'url' => 'required|mimes:jpg,jpeg,png,bmp,docx,pdf,doc|max:3000'
         ]);
         $attachment = $finding->attachments()->create(['url' => '']);
         $attachment->saveFile($request->file('url'));

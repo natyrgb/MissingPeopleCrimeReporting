@@ -1,5 +1,4 @@
 <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
     <div class="p-3">
         <h5>{{ Auth::guard('employee')->user()->name }}</h5>
         <a class="d-block" href="javascript:{}" onclick="document.getElementById('logout-form').submit();">Logout</a>

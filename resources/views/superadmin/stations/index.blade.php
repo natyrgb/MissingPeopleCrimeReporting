@@ -1,63 +1,65 @@
 @extends('layouts.backend.app')
 
 @section('content')
-<div class="content-wrapper">
-    <h1 class="display-2">Stations</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <h3 class="card-header">Stations</h3>
-                <div class="card-body">
-                    @if ($stations->count())
-                        <table class="table table-bordered table-striped datatable-custom">
-                            <thead>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <h3 class="card-header">Stations</h3>
+            <div class="card-body">
+                @if ($stations->count())
+                    <table class="table table-bordered table-striped datatable-custom">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Woreda</th>
+                                <th>Has Admin</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $i = 1;
+                            @endphp
+                            @foreach ($stations as $item)
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Woreda</th>
-                                    <th>Has Admin</th>
-                                    <th>Actions</th>
+                                    <th scope="row">{{$i}}</th>
+                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->woreda}}</td>
+                                    <td>{{ $item->admin != null ? 'Yes' : 'No'}}</td>
+                                    <td>
+                                        @if ($item->admin == null)
+                                            <a onclick="ajaxCall('{{$item->id}}')" type="button" class="btn btn-success">
+                                                Assing Admin
+                                            </a>
+                                        @endif
+                                        <a href="{{route('superadmin.stations.edit', $item)}}" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-danger delete" id="{{$item->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a>
+                                        <form action="{{route('superadmin.stations.destroy', $item)}}" method="post" id="delete{{$item->id}}">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($stations as $item)
-                                    <tr>
-                                        <th scope="row">{{$item->id}}</th>
-                                        <td>{{$item->name}}</td>
-                                        <td>{{$item->woreda}}</td>
-                                        <td>{{ $item->admin != null ? 'Yes' : 'No'}}</td>
-                                        <td>
-                                            @if ($item->admin == null)
-                                                <a onclick="ajaxCall('{{$item->id}}')" type="button" class="btn btn-success">
-                                                    Assing Admin
-                                                </a>
-                                            @endif
-                                            <a href="{{route('superadmin.stations.edit', $item)}}" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a class="btn btn-danger delete" id="{{$item->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                <i class="far fa-trash-alt"></i>
-                                            </a>
-                                            <form action="{{route('superadmin.stations.destroy', $item)}}" method="post" id="delete{{$item->id}}">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="alert alert-danger" role="alert">
-                            There are no stations available.
-                        </div>
-                    @endif
-                </div>
+                                @php
+                                    $i++;
+                                @endphp
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="alert alert-danger" role="alert">
+                        There are no stations available.
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="police" tabindex="-1" role="dialog" aria-labelledby="policeLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

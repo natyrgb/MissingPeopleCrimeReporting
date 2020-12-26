@@ -1899,6 +1899,39 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Header.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Header.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    isLoggedIn: function isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Home.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Home.vue?vue&type=script&lang=js& ***!
@@ -2191,8 +2224,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {},
   created: function created() {
     this.getWoredas();
   },
@@ -2221,8 +2290,8 @@ __webpack_require__.r(__webpack_exports__);
         vm.woredas = JSON.parse(JSON.stringify(response.data));
       })["catch"](function (err) {
         vm.$swal({
-          icon: 'error',
-          title: 'Oops...',
+          icon: "error",
+          title: "Oops...",
           text: err.response.data.message
         });
         vm.validationErrors = err.response.data.errors;
@@ -2246,27 +2315,25 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("image", this.image);
       formData.append("details", this.remarks);
       axios.post("/api/complaints_api", formData).then(function (response) {
-        currentObj.success = response.data.success;
         currentObj.$swal({
-          icon: 'success',
-          title: 'Hurray...',
-          text: 'You have successfully submitted your complaint.',
+          icon: "success",
+          title: "Hurray...",
+          text: "You have successfully submitted your complaint.",
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Show My Complaints.'
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Show My Complaints."
         }).then(function (result) {
-          if (result.isConfirmed) currentObj.$router.push('/api/my_complaints');else {// implement some logic
+          if (result.isConfirmed) currentObj.$router.push("/api/my_complaints");else {// implement some logic
           }
         });
       })["catch"](function (error) {
         currentObj.$swal({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'An Error Occured.'
+          icon: "error",
+          title: "Oops...",
+          text: "An Error Occured."
         });
         currentObj.validationErrors = error.response.data.errors;
-        console.log(currentObj.validationErrors);
       });
     }
   }
@@ -2891,7 +2958,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    this.getWoredas();
+  },
   data: function data() {
     return {
       form: new Form({
@@ -2906,6 +3022,23 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    getWoredas: function getWoredas() {
+      var vm = this;
+      axios.get("/api/get_woredas").then(function (response) {
+        var x = response.data;
+        jQuery.each(x, function (i, woreda) {
+          $("#inputGroupSelect01 option:last").after("<option value=\"".concat(i, "\">").concat(i, "</option>"));
+        });
+        vm.woredas = JSON.parse(JSON.stringify(response.data));
+      })["catch"](function (err) {
+        vm.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message
+        });
+        vm.validationErrors = err.response.data.errors;
+      });
+    },
     register: function register() {
       var _this = this;
 
@@ -2921,12 +3054,12 @@ __webpack_require__.r(__webpack_exports__);
         return _this.$router.push("/api/news_feed");
       })["catch"](function (err) {
         currentObj.$swal({
-          icon: 'error',
-          title: 'Oops...',
+          icon: "error",
+          title: "Oops...",
           text: err.response.data.message
         });
         currentObj.validationErrors = err.response.data.errors;
-        $('.invalid-feedback').show();
+        $(".invalid-feedback").show();
       });
     }
   }
@@ -2943,12 +3076,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 //
 //
 //
@@ -3050,31 +3177,48 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 //
 //
 //
-var Errors = /*#__PURE__*/function () {
-  function Errors() {
-    _classCallCheck(this, Errors);
-
-    this.errors = {};
-  }
-
-  _createClass(Errors, [{
-    key: "get",
-    value: function get(field) {
-      if (this.errors[field]) {
-        return this.errors[field][0];
-      }
-    }
-  }, {
-    key: "record",
-    value: function record(errors) {
-      this.errors = errors.errors;
-    }
-  }]);
-
-  return Errors;
-}();
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    this.getWoredas();
+  },
   data: function data() {
     return {
       name: "",
@@ -3082,17 +3226,31 @@ var Errors = /*#__PURE__*/function () {
       image: null,
       date: "",
       description: "",
-      errors: new Errors()
+      validationErrors: {}
     };
   },
   methods: {
     onFileChange: function onFileChange(e) {
-      console.log(e.target.files[0]);
       this.image = e.target.files[0];
     },
+    getWoredas: function getWoredas() {
+      var vm = this;
+      axios.get("/api/get_woredas").then(function (response) {
+        var x = response.data;
+        jQuery.each(x, function (i, woreda) {
+          $("#inputGroupSelect01 option:last").after("<option value=\"".concat(i, "\">").concat(i, "</option>"));
+        });
+        vm.woredas = JSON.parse(JSON.stringify(response.data));
+      })["catch"](function (err) {
+        vm.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message
+        });
+        vm.validationErrors = err.response.data.errors;
+      });
+    },
     missing_person: function missing_person(e) {
-      var _this = this;
-
       e.preventDefault();
       var currentObj = this;
       var formData = new FormData();
@@ -3102,7 +3260,6 @@ var Errors = /*#__PURE__*/function () {
       formData.append("date", this.date);
       formData.append("description", this.description);
       axios.post("/api/missings_api", formData).then(function (response) {
-        currentObj.success = response.data.success;
         currentObj.$swal({
           icon: "success",
           title: "Success",
@@ -3112,11 +3269,10 @@ var Errors = /*#__PURE__*/function () {
           cancelButtonColor: "#d33",
           confirmButtonText: "Show My Missing Reports."
         }).then(function (result) {
-          if (result.isConfirmed) currentObj.$router.push("/api/my_missing_people");else {// implement some logic
-          }
+          if (result.isConfirmed) currentObj.$router.push("/api/my_missing_people");
         });
       })["catch"](function (error) {
-        _this.errors.record(error.response.data);
+        currentObj.validationErrors = error.response.data.errors;
       });
     }
   }
@@ -47867,6 +48023,53 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Header.vue?vue&type=template&id=1f42fb90& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("header", { staticClass: "masthead" }, [
+    _c(
+      "div",
+      { staticClass: "container", attrs: { id: "app" } },
+      [
+        _c("div", { staticClass: "masthead-subheading" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "masthead-heading text-uppercase" }),
+        _vm._v(" "),
+        !_vm.isLoggedin
+          ? _c(
+              "router-link",
+              {
+                staticClass:
+                  "btn btn-primary btn-xl text-uppercase js-scroll-trigger",
+                attrs: { to: "/api/register" }
+              },
+              [_vm._v("Register Here!")]
+            )
+          : _vm._e()
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Home.vue?vue&type=template&id=f2b6376c&":
 /*!*******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Home.vue?vue&type=template&id=f2b6376c& ***!
@@ -48187,7 +48390,11 @@ var render = function() {
                   _vm._v(" "),
                   _vm.validationErrors.woreda
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.woreda[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.woreda[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ]),
@@ -48236,7 +48443,11 @@ var render = function() {
                   _vm._v(" "),
                   _vm.validationErrors.station_id
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.station_id[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.station_id[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ]),
@@ -48297,7 +48508,11 @@ var render = function() {
                   _vm._v(" "),
                   _vm.validationErrors.type
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.type[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.type[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ]),
@@ -48328,13 +48543,17 @@ var render = function() {
                         staticClass: "custom-file-label",
                         attrs: { for: "customFileLang" }
                       },
-                      [_vm._v("upload image")]
+                      [_vm._v("Upload image")]
                     )
                   ]),
                   _vm._v(" "),
                   _vm.validationErrors.image
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.image[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.image[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ])
@@ -48379,11 +48598,13 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("p", { staticClass: "help-block text-danger" }),
-                    _vm._v(" "),
                     _vm.validationErrors.details
                       ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                          _vm._v(_vm._s(_vm.validationErrors.details[0]))
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.validationErrors.details[0]) +
+                              "\n                        "
+                          )
                         ])
                       : _vm._e()
                   ]
@@ -48422,7 +48643,7 @@ var staticRenderFns = [
           staticClass: "btn btn-primary btn-xl text-uppercase",
           attrs: { id: "sendMessageButton", type: "submit" }
         },
-        [_vm._v("\n          Submit\n        ")]
+        [_vm._v("\n                    Submit\n                ")]
       )
     ])
   }
@@ -49305,7 +49526,11 @@ var render = function() {
                   _vm._v(" "),
                   _vm.validationErrors.name
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.name[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.name[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ]),
@@ -49342,7 +49567,11 @@ var render = function() {
                   _vm._v(" "),
                   _vm.validationErrors.email
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.email[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.email[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ]),
@@ -49379,7 +49608,11 @@ var render = function() {
                   _vm._v(" "),
                   _vm.validationErrors.phone
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.phone[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.phone[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ])
@@ -49387,40 +49620,68 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [
                 _c("div", { staticClass: "form-group" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.woreda,
-                        expression: "form.woreda"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    class: {
-                      "is-invalid": _vm.validationErrors.hasOwnProperty(
-                        "woreda"
-                      )
-                    },
-                    attrs: {
-                      type: "number",
-                      placeholder: "Your Woreda",
-                      name: "woreda"
-                    },
-                    domProps: { value: _vm.form.woreda },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.woreda,
+                          expression: "form.woreda"
                         }
-                        _vm.$set(_vm.form, "woreda", $event.target.value)
+                      ],
+                      staticClass: "custom-select",
+                      class: {
+                        "is-invalid": _vm.validationErrors.hasOwnProperty(
+                          "woreda"
+                        )
+                      },
+                      attrs: { id: "inputGroupSelect01", name: "woreda" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "woreda",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
                       }
-                    }
-                  }),
+                    },
+                    [
+                      _c("option", { attrs: { disabled: "", value: "" } }, [
+                        _vm._v("Choose woreda..")
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _vm.validationErrors.woreda
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.woreda[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.woreda[0]) +
+                            "\n                        "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.validationErrors.woreda
+                    ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.woreda[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ]),
@@ -49459,7 +49720,11 @@ var render = function() {
                   _vm._v(" "),
                   _vm.validationErrors.password
                     ? _c("div", { staticClass: "invalid-feedback d-block" }, [
-                        _vm._v(_vm._s(_vm.validationErrors.password[0]))
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.password[0]) +
+                            "\n                        "
+                        )
                       ])
                     : _vm._e()
                 ]),
@@ -49534,7 +49799,7 @@ var staticRenderFns = [
           staticClass: "btn btn-primary btn-xl text-uppercase",
           attrs: { id: "submitbutton", type: "submit" }
         },
-        [_vm._v("\n          Submit\n        ")]
+        [_vm._v("\n                    Submit\n                ")]
       )
     ])
   }
@@ -49597,7 +49862,7 @@ var render = function() {
                     ],
                     staticClass: "form-control",
                     class: {
-                      "is-invalid": _vm.errors.get("name")
+                      "is-invalid": _vm.validationErrors.hasOwnProperty("name")
                     },
                     attrs: {
                       type: "text",
@@ -49615,60 +49880,90 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c("p", { staticClass: "help-block text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.get("name")))
-                  ])
+                  _vm.validationErrors.name
+                    ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.name[0]) +
+                            "\n                        "
+                        )
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.woreda,
-                        expression: "woreda"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    class: {
-                      "is-invalid": _vm.errors.get("woreda")
-                    },
-                    attrs: {
-                      type: "number",
-                      placeholder: "Choose Woreda",
-                      name: "woreda"
-                    },
-                    domProps: { value: _vm.woreda },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.woreda,
+                          expression: "woreda"
                         }
-                        _vm.woreda = $event.target.value
+                      ],
+                      staticClass: "custom-select",
+                      class: {
+                        "is-invalid": _vm.validationErrors.hasOwnProperty(
+                          "woreda"
+                        )
+                      },
+                      attrs: { id: "inputGroupSelect01", name: "woreda" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.woreda = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
                       }
-                    }
-                  }),
+                    },
+                    [
+                      _c("option", { attrs: { disabled: "", value: "" } }, [
+                        _vm._v("Choose woreda..")
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "help-block text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.get("woreda")))
-                  ])
+                  _vm.validationErrors.woreda
+                    ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.woreda[0]) +
+                            "\n                        "
+                        )
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("input", {
                     staticClass: "form-file-control",
                     class: {
-                      "is-invalid": _vm.errors.get("image")
+                      "is-invalid": _vm.validationErrors.hasOwnProperty("image")
                     },
                     attrs: { type: "file" },
                     on: { change: _vm.onFileChange }
                   })
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "help-block text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.get("image")))
-                ]),
+                _vm.validationErrors.image
+                  ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.validationErrors.image[0]) +
+                          "\n                        "
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", [
                   _c("input", {
@@ -49682,7 +49977,7 @@ var render = function() {
                     ],
                     staticClass: "form-control",
                     class: {
-                      "is-invalid": _vm.errors.get("date")
+                      "is-invalid": _vm.validationErrors.hasOwnProperty("date")
                     },
                     attrs: { type: "date", name: "date" },
                     domProps: { value: _vm.date },
@@ -49696,9 +49991,15 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c("p", { staticClass: "help-block text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.get("date")))
-                  ])
+                  _vm.validationErrors.date
+                    ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.validationErrors.date[0]) +
+                            "\n                        "
+                        )
+                      ])
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
@@ -49722,7 +50023,9 @@ var render = function() {
                         ],
                         staticClass: "form-control",
                         class: {
-                          "is-invalid": _vm.errors.get("description")
+                          "is-invalid": _vm.validationErrors.hasOwnProperty(
+                            "description"
+                          )
                         },
                         attrs: {
                           name: "description",
@@ -49738,16 +50041,18 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("                          >")]
+                      [_vm._v("                        >")]
                     ),
                     _vm._v(" "),
-                    _c("p", { staticClass: "help-block text-danger" }, [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(_vm.errors.get("description")) +
-                          "\n            "
-                      )
-                    ])
+                    _vm.validationErrors.description
+                      ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.validationErrors.description[0]) +
+                              "\n                        "
+                          )
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -49767,7 +50072,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-center" }, [
       _c("h2", { staticClass: "section-heading text-uppercase" }, [
-        _vm._v("Report missing person")
+        _vm._v("\n                Report missing person\n            ")
       ])
     ])
   },
@@ -49784,7 +50089,7 @@ var staticRenderFns = [
           staticClass: "btn btn-primary btn-xl text-uppercase",
           attrs: { id: "sendMessageButton", type: "submit" }
         },
-        [_vm._v("\n          Submit\n        ")]
+        [_vm._v("\n                    Submit\n                ")]
       )
     ])
   }
@@ -73906,6 +74211,7 @@ window.Form = vform__WEBPACK_IMPORTED_MODULE_3__["Form"];
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_3__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_3__["HasError"]);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_3__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_3__["AlertError"]);
 Vue.component('navbar', __webpack_require__(/*! ./components/Navbar.vue */ "./resources/js/components/Navbar.vue")["default"]);
+Vue.component('top', __webpack_require__(/*! ./components/Header.vue */ "./resources/js/components/Header.vue")["default"]);
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 var app = new Vue({
   el: '#apps',
@@ -73966,6 +74272,75 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   forceTLS: false,
   disableStats: true
 });
+
+/***/ }),
+
+/***/ "./resources/js/components/Header.vue":
+/*!********************************************!*\
+  !*** ./resources/js/components/Header.vue ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Header_vue_vue_type_template_id_1f42fb90___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue?vue&type=template&id=1f42fb90& */ "./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&");
+/* harmony import */ var _Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header.vue?vue&type=script&lang=js& */ "./resources/js/components/Header.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Header_vue_vue_type_template_id_1f42fb90___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Header_vue_vue_type_template_id_1f42fb90___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Header.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Header.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/Header.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Header.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Header.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Header.vue?vue&type=template&id=1f42fb90& ***!
+  \***************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Header.vue?vue&type=template&id=1f42fb90& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

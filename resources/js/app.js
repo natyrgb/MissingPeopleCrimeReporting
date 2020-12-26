@@ -26,6 +26,7 @@ window.Form =Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.component('navbar', require ('./components/Navbar.vue').default)
+Vue.component('top', require ('./components/Header.vue').default)
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 const app = new Vue({

@@ -24,7 +24,7 @@ class EmployeeLoginController extends Controller
 
     //returns view of employee login
     public function showLoginForm() {
-        return view('auth.emp_login');
+        return view('auth.e_login');
     }
 
     // override the redirectTo method to return appropriate url
@@ -34,6 +34,6 @@ class EmployeeLoginController extends Controller
             return '/employee/edit_account';
         }
         else
-        return redirect('/'.strtolower($employee->role).'/home');
+        return '/'.strtolower($employee->role).'/home';
     }
 }

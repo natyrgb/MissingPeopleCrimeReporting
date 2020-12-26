@@ -15,7 +15,7 @@ class GuestController extends Controller
      * @return json paginated object of missing people which are not found
      */
     public function getWoredas() {
-        $woredas = Station::all()->groupBy('woreda');
+        $woredas = Station::where('id', '<>', 1)->get()->groupBy('woreda');
         return response()->json($woredas);
     }
 

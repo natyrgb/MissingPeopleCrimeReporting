@@ -21,9 +21,9 @@
                                 <th scope="row">{{$item->name}}</th>
                                 <td>{{ucwords(str_replace('_', ' ', $item->status))}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-success">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_suspect" data-whatever="{{json_encode($item)}}">
                                         <i class="fas fa-eye"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach

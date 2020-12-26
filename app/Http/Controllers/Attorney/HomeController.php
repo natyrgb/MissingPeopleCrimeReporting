@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Attorney;
 
 use App\Http\Controllers\Controller;
+use App\Models\Complaint;
 use App\Models\CrimeRecord;
 use App\Models\Criminal;
 use App\Models\Finding;
+use App\Models\MissingPerson;
 use App\Models\Suspect;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,7 +20,40 @@ class HomeController extends Controller
      * @return view of attorney home
      */
     public function index() {
-        return view('attorney.home');
+        return view('attorney.home', [
+            'crime_rates' => Complaint::crime_stat(),'type_all' => [
+                'Robbery' => Complaint::where('type', 'robbery')->get()->groupBy('status'),
+                'Homicide' => Complaint::where('type', 'homicide')->get()->groupBy('status'),
+                'Assault' => Complaint::where('type', 'assault')->get()->groupBy('status'),
+                'Burglary' => Complaint::where('type', 'burglary')->get()->groupBy('status'),
+            ],
+            'type_all' => [
+                'Robbery' => Complaint::where('type', 'robbery')->get()->groupBy('status'),
+                'Homicide' => Complaint::where('type', 'homicide')->get()->groupBy('status'),
+                'Assault' => Complaint::where('type', 'assault')->get()->groupBy('status'),
+                'Burglary' => Complaint::where('type', 'burglary')->get()->groupBy('status'),
+            ],
+            'type_station' => [
+                'Robbery' => Complaint::where([
+                    ['type', 'robbery'],
+                    ['station_id', Auth::guard('employee')->user()->station_id]
+                ])->get()->groupBy('status'),
+                'Homicide' => Complaint::where([
+                    ['type', 'homicide'],
+                    ['station_id', Auth::guard('employee')->user()->station_id]
+                ])->get()->groupBy('status'),
+                'Assault' => Complaint::where([
+                    ['type', 'assault'],
+                    ['station_id', Auth::guard('employee')->user()->station_id]
+                ])->get()->groupBy('status'),
+                'Burglary' => Complaint::where([
+                    ['type', 'burglary'],
+                    ['station_id', Auth::guard('employee')->user()->station_id]
+                ])->get()->groupBy('status'),
+            ],
+            'still_missing' => MissingPerson::where('status', 'new')->orWhere('status', 'missing')->count(),
+            'found' => MissingPerson::where('status', 'found')->orWhere('status', 'seen')->count(),
+        ]);
     }
 
     /**
@@ -116,16 +151,8 @@ class HomeController extends Controller
         ]);
         $criminal = Criminal::create($request->except('_token'));
 
-        $file = $request->file('mugshot1');
-        $imageName = time().'-'.$file->getClientOriginalName();
-        $file->move(public_path('images/criminals'), $imageName);
-        $criminal->mugshot1 = 'images/criminals/'.$imageName;
-
-        $file = $request->file('mugshot2');
-        $imageName = time().'-'.$file->getClientOriginalName();
-        $file->move(public_path('images/criminals'), $imageName);
-        $criminal->mugshot2 = 'images/criminals/'.$imageName;
-        $criminal->save();
+        $criminal->saveFile($request->file('mugshot1'), 'mugshot1');
+        $criminal->saveFile($request->file('mugshot2'), 'mugshot2');
         CrimeRecord::create([
             'criminal_id' => $criminal->id,
             'finding_id' => $finding->id
@@ -140,13 +167,15 @@ class HomeController extends Controller
      * @return redirect to attorney home with success
      */
     public function closeCase(Request $request, Finding $finding) {
+        $attorney = Auth::guard('employee')->user();
         if($finding->suspects()->where('verdict', 'under_investigation')->count())
             return back()->with('error', true)->with('message', 'There are suspects not given verdict.');
         $complaint = $finding->complaint;
         $complaint->status = 'solved';
         $complaint->save();
-        $attorney = Auth::guard('employee')->user();
-        $attorney->is_available = true;
+        $open_cases = Finding::openCasesForAttorney($attorney->id)->count();
+        if(!$open_cases)
+            $attorney->is_available = true;
         $attorney->save();
         return redirect()->route('attorney.home')->with('success', true);
     }

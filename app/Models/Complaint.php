@@ -80,4 +80,13 @@ class Complaint extends Model
         $this->is_spam = true;
         $this->save();
     }
+
+    public static function crime_stat() {
+        $stations = Station::all();
+        $crimes_with_station = array();
+        foreach($stations as $station) {
+            $crimes_with_station[$station->name] = $station->complaints()->get()->groupBy('type');
+        }
+        return $crimes_with_station;
+    }
 }

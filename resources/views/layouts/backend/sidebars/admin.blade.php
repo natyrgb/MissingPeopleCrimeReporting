@@ -87,11 +87,6 @@
                                 <i class="far fa-eye nav-icon"></i><p>Show All</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('employee.edit_account')}}" class="nav-link @if($route == 'employee.edit_account') active @endif">
-                                <i class="far fa-eye nav-icon"></i><p>Edit Account</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
             </ul>

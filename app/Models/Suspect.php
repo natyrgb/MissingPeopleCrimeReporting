@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Suspect extends Model
 {
@@ -23,5 +24,12 @@ class Suspect extends Model
         $criminal->crime_records()->create([
             'finding_id' => $this->finding->id
         ]);
+    }
+
+    public function saveImage(UploadedFile $file) {
+        $imageName = time().'-'.$file->getClientOriginalName();
+        $file->move(public_path("images/suspects"), $imageName);
+        $this->image = "images/suspects/".$imageName;
+        $this->save();
     }
 }
