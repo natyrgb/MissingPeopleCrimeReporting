@@ -15,7 +15,7 @@ class Blog extends Model
     protected $guarded = ['id'];
 
     // overrides the created_at attribute into a human readable time like One Day Ago and such
-    public function getCreatedAtAttribute() {
+    public function getUpdatedAtAttribute() {
         return  Carbon::parse($this->attributes['created_at'])->diffForHumans();
     }
 
@@ -33,5 +33,13 @@ class Blog extends Model
         $file->move(public_path('images/blogs'), $imageName);
         $this->url = 'images/blogs/'.$imageName;
         $this->save();
+    }
+
+    public static function thisWeeksNews() {
+        $now = Carbon::now();
+        $weekStart = $now->subDays($now->dayOfWeek)->setTime(0, 0);
+        return Blog::where('created_at', '>=', $weekStart)
+                ->orWhere('updated_at', '>=', $weekStart)
+                ->take(10)->orderBy('updated_at', 'desc')->get();
     }
 }

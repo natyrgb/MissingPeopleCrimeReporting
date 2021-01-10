@@ -4,7 +4,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-var path = 'http://192.168.1.103:8000/api'
+var path = '/api'
 export default new Vuex.Store({
   state: {
     status: '',

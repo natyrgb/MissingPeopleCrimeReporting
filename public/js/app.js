@@ -2820,7 +2820,6 @@ __webpack_require__.r(__webpack_exports__);
       _this.news_feed = response.data.news;
     });
     window.Echo.channel('blogs').listen('BlogAdded', function (e) {
-      console.log(e);
       _this.news_feed = e.blogs;
     });
   },
@@ -49424,7 +49423,7 @@ var render = function() {
                 _c("div", { staticClass: "timeline-panel" }, [
                   _c("div", { staticClass: "timeline-heading" }, [
                     _c("h4", { staticClass: "text-warning" }, [
-                      _vm._v(_vm._s(news.created_at))
+                      _vm._v(_vm._s(news.updated_at))
                     ]),
                     _vm._v(" "),
                     _c("h4", { staticClass: "subheading" }, [
@@ -75322,7 +75321,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var path = 'http://192.168.1.103:8000/api';
+var path = '/api';
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     status: '',
@@ -75434,26 +75433,14 @@ var path = 'http://192.168.1.103:8000/api';
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!*****************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/admin.scss ***!
-  \*****************************************************************************************/
+/*!***************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/admin.scss ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\sass\app.scss */"./resources/sass/app.scss");
 module.exports = __webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\sass\admin.scss */"./resources/sass/admin.scss");
 
 

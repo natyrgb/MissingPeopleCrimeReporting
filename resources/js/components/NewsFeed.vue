@@ -19,7 +19,7 @@
           </div>
           <div class="timeline-panel">
             <div class="timeline-heading">
-              <h4 class="text-warning">{{ news.created_at }}</h4>
+              <h4 class="text-warning">{{ news.updated_at }}</h4>
               <h4 class="subheading">{{ news.title }}</h4>
             </div>
             <div class="timeline-body">
@@ -44,7 +44,6 @@ export default {
     })
     window.Echo.channel('blogs')
     .listen('BlogAdded', (e) => {
-        console.log(e);
         this.news_feed = e.blogs
     })
   },

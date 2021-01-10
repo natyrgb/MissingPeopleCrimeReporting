@@ -2,26 +2,25 @@
 
 namespace App\Events;
 
-use App\Models\Blog;
+use App\Models\WantedCriminal;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class BlogAdded implements ShouldBroadcast
+class WantedCriminalAdded implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $blogs;
+    public $wantedCriminals;
     /**
      * Create a new event instance.
      *
      * @return void
      */
     public function __construct() {
-        // populates the blogs property with the latest 3 blogs updated when a new blog is added
-        $this->blogs = Blog::thisWeeksNews();
+        $this->wantedCriminals = WantedCriminal::paginate(3);
     }
 
     /**
@@ -31,6 +30,6 @@ class BlogAdded implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('blogs');
+        return new Channel('wanted-criminals');
     }
 }

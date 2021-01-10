@@ -40,6 +40,7 @@ class WantedCriminalsController extends Controller
      */
     public function makeWanted(Criminal $criminal) {
         $criminal->wanted_criminal()->create();
+        event(new \App\Events\WantedCriminalAdded());
         return back()->with('success', true);
     }
 

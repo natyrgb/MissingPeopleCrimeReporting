@@ -59,6 +59,7 @@ class MissingPeopleController extends Controller
             ]);
             $attachment->saveFile($request->file('image'));
         }
+        event(new \App\Events\MissingPersonAdded());
         return response()->json([
             'success' => true,
             'my_missing' => MissingPerson::userMissing($user->id)
