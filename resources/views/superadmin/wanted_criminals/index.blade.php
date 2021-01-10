@@ -76,28 +76,30 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($criminals as $item)
-                                        <tr>
-                                            <th scope="row">{{$item->citizen_id}}</th>
-                                            <td>{{$item->name}}</td>
-                                            <td>
-                                                <a data-toggle="tooltip" title="<img src='{{asset($item->mugshot1)}}' class='img-fluid'>">{{$item->mugshot1}}</a>
-                                            </td>
-                                            <td>
-                                                <a data-toggle="tooltip" title="<img src='{{asset($item->mugshot2)}}' class='img-fluid'>">{{$item->mugshot2}}</a>
-                                            </td>
-                                            <td>
-                                                <a href="{{route('superadmin.make_wanted', $item)}}" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                    Mark As Wanted
-                                                </a>
-                                                <a class="btn btn-danger delete" id="{{$item->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </a>
-                                                <form action="{{route('superadmin.blogs.destroy', [$item])}}" method="post" id="delete{{$item->id}}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
-                                            </td>
-                                        </tr>
+                                        @if (!$item->wanted_criminal)
+                                            <tr>
+                                                <th scope="row">{{$item->citizen_id}}</th>
+                                                <td>{{$item->name}}</td>
+                                                <td>
+                                                    <a data-toggle="tooltip" title="<img src='{{asset($item->mugshot1)}}' class='img-fluid'>">{{$item->mugshot1}}</a>
+                                                </td>
+                                                <td>
+                                                    <a data-toggle="tooltip" title="<img src='{{asset($item->mugshot2)}}' class='img-fluid'>">{{$item->mugshot2}}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{route('superadmin.make_wanted', $item)}}" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        Mark As Wanted
+                                                    </a>
+                                                    <a class="btn btn-danger delete" id="{{$item->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </a>
+                                                    <form action="{{route('superadmin.blogs.destroy', [$item])}}" method="post" id="delete{{$item->id}}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

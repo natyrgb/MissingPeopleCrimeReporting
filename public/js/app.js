@@ -3406,7 +3406,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.getResults();
-    window.Echo.channel('wanted-criminal').listen('WantedCriminalAdded', function (e) {
+    window.Echo.channel('wanted-criminals').listen('WantedCriminalAdded', function (e) {
       _this.wanted_criminal = e.wantedCriminals;
     });
   },
@@ -3416,7 +3416,6 @@ __webpack_require__.r(__webpack_exports__);
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get("/api/wanted_criminals_api?page=" + page).then(function (response) {
-        console.log(response.data.wanted_criminals);
         _this2.wanted_criminal = response.data.wanted_criminals;
       });
     },

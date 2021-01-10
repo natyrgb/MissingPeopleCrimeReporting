@@ -104,7 +104,7 @@ export default {
   },
   mounted() {
     this.getResults();
-    window.Echo.channel('wanted-criminal')
+    window.Echo.channel('wanted-criminals')
     .listen('WantedCriminalAdded', (e) => {
         this.wanted_criminal = e.wantedCriminals
     })
@@ -113,7 +113,6 @@ export default {
   methods: {
     getResults(page = 1) {
       axios.get("/api/wanted_criminals_api?page=" + page).then((response) => {
-        console.log(response.data.wanted_criminals);
         this.wanted_criminal = response.data.wanted_criminals;
       });
     },
