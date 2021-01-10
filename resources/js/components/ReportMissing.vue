@@ -102,6 +102,7 @@
                     <br />
                     <div class="col-md-6">
                         <div class="form-group form-group-textarea mb-md-0">
+                        <label for="description" style="color:white !important;">Description</label>
                             <textarea
                                 v-model="description"
                                 class="form-control"

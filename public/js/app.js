@@ -2256,6 +2256,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.getWoredas();
@@ -3082,6 +3083,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -48569,6 +48571,15 @@ var render = function() {
                   "div",
                   { staticClass: "form-group form-group-textarea mb-md-0" },
                   [
+                    _c(
+                      "label",
+                      {
+                        staticStyle: { color: "white !important" },
+                        attrs: { for: "message" }
+                      },
+                      [_vm._v("Remarks")]
+                    ),
+                    _vm._v(" "),
                     _c("textarea", {
                       directives: [
                         {
@@ -49173,7 +49184,7 @@ var render = function() {
                     _c(
                       "router-link",
                       {
-                        staticClass: "dropdown-item",
+                        staticClass: "dropdown-item nav-link js-scroll-trigger",
                         attrs: { to: "/api/news_feed" }
                       },
                       [_vm._v("News Feed")]
@@ -49182,7 +49193,7 @@ var render = function() {
                     _c(
                       "router-link",
                       {
-                        staticClass: "dropdown-item",
+                        staticClass: "dropdown-item nav-link js-scroll-trigger",
                         attrs: { to: "/api/missing_people" }
                       },
                       [_vm._v("Missing people")]
@@ -49191,7 +49202,7 @@ var render = function() {
                     _c(
                       "router-link",
                       {
-                        staticClass: "dropdown-item",
+                        staticClass: "dropdown-item nav-link js-scroll-trigger",
                         attrs: { to: "/api/wanted_criminals" }
                       },
                       [_vm._v("Wanted criminals")]
@@ -49199,7 +49210,10 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      {
+                        staticClass: "dropdown-item nav-link js-scroll-trigger",
+                        attrs: { href: "#" }
+                      },
                       [_vm._v("Crime stats")]
                     )
                   ],
@@ -49234,7 +49248,8 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass: "dropdown-item",
+                            staticClass:
+                              "dropdown-item nav-link js-scroll-trigger",
                             attrs: { to: "/api/make_complaint" }
                           },
                           [_vm._v("Make complaints")]
@@ -49243,7 +49258,8 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass: "dropdown-item",
+                            staticClass:
+                              "dropdown-item nav-link js-scroll-trigger",
                             attrs: { to: "/api/report_missing" }
                           },
                           [_vm._v("Report missing person")]
@@ -49281,7 +49297,8 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass: "dropdown-item",
+                            staticClass:
+                              "dropdown-item nav-link js-scroll-trigger",
                             attrs: { to: "/api/my_complaints" }
                           },
                           [_vm._v("Complaints")]
@@ -49290,7 +49307,8 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass: "dropdown-item",
+                            staticClass:
+                              "dropdown-item nav-link js-scroll-trigger",
                             attrs: { to: "/api/my_missing_people" }
                           },
                           [_vm._v("Missing people")]
@@ -50042,6 +50060,15 @@ var render = function() {
                   "div",
                   { staticClass: "form-group form-group-textarea mb-md-0" },
                   [
+                    _c(
+                      "label",
+                      {
+                        staticStyle: { color: "white !important" },
+                        attrs: { for: "description" }
+                      },
+                      [_vm._v("Description")]
+                    ),
+                    _vm._v(" "),
                     _c(
                       "textarea",
                       {
@@ -75461,8 +75488,8 @@ var path = '/api';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Naty_G\Desktop\MissingPeopleCrimeReporting\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Naty_G\Desktop\MissingPeopleCrimeReporting\resources\sass\admin.scss */"./resources/sass/admin.scss");
+__webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\sass\admin.scss */"./resources/sass/admin.scss");
 
 
 /***/ })

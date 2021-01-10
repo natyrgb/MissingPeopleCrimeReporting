@@ -21,6 +21,9 @@ class AccountController extends Controller
     }
 
     public function updateAccount(Request $request, Employee $employee) {
+        $customMessage = [
+            'password.regex' => 'The password must containt at least one lowercase, one uppercase, one digit, and one special character.'
+        ];
         $request->validate([
             'name' => 'required|string',
             'email' => [
@@ -31,7 +34,19 @@ class AccountController extends Controller
                 'required', 'string',
                 Rule::unique('employees')->ignore($employee)
             ],
-            'password' => 'exclude_if:password_changed,1|string|min:8|confirmed',
+            'password' => [
+                Rule::requiredIf($employee->password_changed == false),
+                'nullable', 'string','min:8','confirmed',
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/',
+                function ($attribute, $value, $fail) {
+                    if (Hash::check($value, Auth::guard('employee')->user()->password)) {
+                        $fail('The password has not changed.');
+                    }
+                },
+            ],
             'old_password' => [
                 'required', 'string',
                 function ($attribute, $value, $fail) {
@@ -40,7 +55,7 @@ class AccountController extends Controller
                     }
                 },
             ],
-        ]);
+        ], $customMessage);
         if($request->has('password'))
             $request['password'] = Hash::make($request['password']);
         $employee->fill($request->all());

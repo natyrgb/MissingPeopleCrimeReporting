@@ -35,7 +35,7 @@
 export default {
   data() {
     return {
-      news_feed: []
+      news_feed: [],
     };
   },
   mounted() {

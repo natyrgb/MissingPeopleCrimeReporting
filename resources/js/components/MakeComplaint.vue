@@ -118,6 +118,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group form-group-textarea mb-md-0">
+                        <label for="message" style="color:white !important;">Remarks</label>
                             <textarea
                                 class="form-control"
                                 id="message"

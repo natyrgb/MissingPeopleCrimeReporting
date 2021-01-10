@@ -16,13 +16,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $i = 1;
-                    @endphp
                     @foreach ($employees as $item)
                         @if ($item->role != 'ADMIN' && $item->role != 'SUPERADMIN')
                             <tr>
-                                <th scope="row">{{$i}}</th>
+                                <th scope="row">{{$item->id}}</th>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->department ? ucwords(str_replace('-', ' ', $item->department->name)) : '-'}}</td>
                                 <td>{{$item->role}}</td>
@@ -40,9 +37,6 @@
                                 </td>
                             </tr>
                         @endif
-                        @php
-                            $i++;
-                        @endphp
                     @endforeach
                 </tbody>
             </table>

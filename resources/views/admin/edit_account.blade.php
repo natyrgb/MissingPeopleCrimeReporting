@@ -59,11 +59,19 @@
 @endsection
 
 @section('js')
-@if($employee->password_changed == false)
-<script>
-    $(document).ready(function() {
-        Swal.fire('Welcome', "You should change the default password now.", 'success');
-    })
-</script>
-@endif()
+@if ($errors->any())
+    <script>
+        $(document).ready(function() {
+            Swal.fire('Ooops...', "There was an error on in your input.", 'error');
+        })
+    </script>
+@else
+    @if($employee->password_changed == false)
+        <script>
+            $(document).ready(function() {
+                Swal.fire('Welcome', "You should change the default password now.", 'success');
+            })
+        </script>
+    @endif
+@endif
 @endsection
