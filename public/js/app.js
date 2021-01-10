@@ -74278,7 +74278,7 @@ window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/d
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "appkey",
-  cluster: "ap2",
+  cluster: "mt1",
   wsHost: window.location.hostname,
   wsPort: 6001,
   forceTLS: false,
@@ -75452,9 +75452,9 @@ var path = 'http://192.168.1.103:8000/api';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Naty_G\Documents\jon-branch\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\Naty_G\Documents\jon-branch\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Users\Naty_G\Documents\jon-branch\resources\sass\admin.scss */"./resources/sass/admin.scss");
+__webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\sass\admin.scss */"./resources/sass/admin.scss");
 
 
 /***/ })
