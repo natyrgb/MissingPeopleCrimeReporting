@@ -1939,34 +1939,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       crime_rates: [],
-      type_station: [],
-      type_all: [],
       still_missing: 0,
-      found: 0
+      found: 0,
+      robberyData: [],
+      homicideData: [],
+      assaultData: [],
+      burglaryData: [],
+      othersData: []
     };
   },
   mounted: function mounted() {
@@ -1974,14 +1957,113 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getResults: function getResults() {
-      axios.get("/api/charts_api").then(function (response) {
-        console.log(response.data.crime_rates);
+      var vm = this;
+      axios.get("/api/charts_api/" + localStorage.getItem('userId')).then(function (response) {
+        vm.crime_rates = response.data.crime_rates;
+        vm.type_station = response.data.type_station;
+        vm.still_missing = response.data.still_missing;
+        vm.found = response.data.found;
+        var stations = Object.keys(vm.crime_rates);
+        var crimes = Object.values(vm.crime_rates);
+        stations.forEach(vm.getStationCrimes);
+        var ctx = document.getElementById("crimeRate");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: stations,
+            datasets: [{
+              label: "Robbery",
+              backgroundColor: "#caf270",
+              data: vm.robberyData,
+              borderWidth: 1
+            }, {
+              label: "Homicide",
+              backgroundColor: "#45c490",
+              data: vm.homicideData,
+              borderWidth: 1
+            }, {
+              label: "Assault",
+              backgroundColor: "#008d93",
+              data: vm.assaultData,
+              borderWidth: 1
+            }, {
+              label: "Burglary",
+              backgroundColor: "#2e5468",
+              data: vm.burglaryData,
+              borderWidth: 1
+            }, {
+              label: "Others",
+              backgroundColor: "#000",
+              data: vm.othersData,
+              borderWidth: 1
+            }]
+          },
+          options: {
+            tooltips: {
+              displayColors: true,
+              callbacks: {
+                mode: "x"
+              }
+            },
+            scales: {
+              xAxes: [{
+                stacked: true,
+                gridLines: {
+                  display: false
+                }
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  beginAtZero: true,
+                  stepSize: 1
+                },
+                type: "linear"
+              }]
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+              position: "right"
+            }
+          }
+        });
+        var missing = vm.still_missing;
+        var found = vm.found;
+        var ctx = document.getElementById("missingRatio");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Still Missing " + missing, "Found " + found],
+            datasets: [{
+              label: "# of missing people",
+              data: [missing, found],
+              backgroundColor: ["rgba(255, 99, 132, 0.6)", "rgba(54, 162, 235, 0.6)"],
+              borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            legend: {
+              position: "right"
+            }
+          }
+        });
+      })["catch"](function (error) {
+        console.log(error);
       });
     },
     getLength: function getLength() {
       var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       if (obj == null) return 0;
       return obj.length;
+    },
+    getStationCrimes: function getStationCrimes(item, index) {
+      this.robberyData.push(this.getLength(this.crime_rates[item].robbery));
+      this.homicideData.push(this.getLength(this.crime_rates[item].homicide));
+      this.assaultData.push(this.getLength(this.crime_rates[item].assault));
+      this.burglaryData.push(this.getLength(this.crime_rates[item].burglary));
+      this.othersData.push(this.getLength(this.crime_rates[item].others));
     }
   }
 });
@@ -64339,7 +64421,7 @@ var staticRenderFns = [
       { staticClass: "page-section", attrs: { id: "contact" } },
       [
         _c("div", { staticClass: "row justify-content-around d-flex m-4" }, [
-          _c("div", { staticClass: "col-md-5" }, [
+          _c("div", { staticClass: "col-md-10 my-4" }, [
             _c("div", { staticClass: "card card-success" }, [
               _c("div", { staticClass: "card-header" }, [
                 _c("h2", { staticClass: "card-title" }, [
@@ -64352,7 +64434,7 @@ var staticRenderFns = [
                   "div",
                   {
                     staticClass: "canvas-container",
-                    staticStyle: { width: "300px", height: "300px" }
+                    staticStyle: { width: "60vw", height: "30vh" }
                   },
                   [
                     _c("canvas", {
@@ -64362,57 +64444,11 @@ var staticRenderFns = [
                 )
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-5" }, [
-            _c("div", { staticClass: "card card-success" }, [
-              _c("h2", { staticClass: "card-header" }, [
-                _vm._v("Crimes Reported In All Wored")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "canvas-container",
-                    staticStyle: { height: "300px", width: "300px" }
-                  },
-                  [
-                    _c("canvas", {
-                      attrs: { id: "typeAll", width: "100", height: "100" }
-                    })
-                  ]
-                )
-              ])
-            ])
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row justify-content-around d-flex m-4" }, [
-          _c("div", { staticClass: "col-md-5" }, [
-            _c("div", { staticClass: "card card-success" }, [
-              _c("h2", { staticClass: "card-header" }, [
-                _vm._v("Crimes Reported In This Station")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "canvas-container",
-                    staticStyle: { height: "300px", width: "300px" }
-                  },
-                  [
-                    _c("canvas", {
-                      attrs: { id: "typeStation", width: "100", height: "100" }
-                    })
-                  ]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-5" }, [
+          _c("div", { staticClass: "col-md-8" }, [
             _c("div", { staticClass: "card card-success" }, [
               _c("h2", { staticClass: "card-header" }, [
                 _vm._v("Missing People Reported So Far")
@@ -64423,7 +64459,7 @@ var staticRenderFns = [
                   "div",
                   {
                     staticClass: "canvas-container",
-                    staticStyle: { height: "300px", width: "300px" }
+                    staticStyle: { height: "400px", width: "400px" }
                   },
                   [
                     _c("canvas", {
@@ -91899,8 +91935,10 @@ var path = '/api';
           var token = resp.data.token;
           var user = resp.data.user;
           localStorage.setItem('token', token);
+          localStorage.setItem('userId', user.id);
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + token;
           commit('auth_success', token, user);
+          localStorage.getItem('userId');
           resolve(resp);
         })["catch"](function (err) {
           commit('auth_error');
@@ -91921,6 +91959,7 @@ var path = '/api';
           var token = resp.data.token;
           var user = resp.data.user;
           localStorage.setItem('token', token);
+          localStorage.setItem('userId', user.id);
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + token;
           commit('auth_success', token, user);
           resolve(resp);
@@ -91941,6 +91980,7 @@ var path = '/api';
         }).then(function (resp) {
           commit('logout');
           localStorage.removeItem('token');
+          localStorage.removeItem('userId');
           delete axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'];
           resolve();
         })["catch"](function (err) {

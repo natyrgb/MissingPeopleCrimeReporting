@@ -18,6 +18,7 @@ class HomeController extends Controller
                 'Homicide' => Complaint::where('type', 'homicide')->get()->groupBy('status'),
                 'Assault' => Complaint::where('type', 'assault')->get()->groupBy('status'),
                 'Burglary' => Complaint::where('type', 'burglary')->get()->groupBy('status'),
+                'Other' => Complaint::where('type', 'others')->get()->groupBy('status'),
             ],
             'type_station' => [
                 'Robbery' => Complaint::where([
@@ -34,6 +35,10 @@ class HomeController extends Controller
                 ])->get()->groupBy('status'),
                 'Burglary' => Complaint::where([
                     ['type', 'burglary'],
+                    ['station_id', Auth::guard('employee')->user()->station_id]
+                ])->get()->groupBy('status'),
+                'Other' => Complaint::where([
+                    ['type', 'others'],
                     ['station_id', Auth::guard('employee')->user()->station_id]
                 ])->get()->groupBy('status'),
             ],
