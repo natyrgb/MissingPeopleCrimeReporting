@@ -12,6 +12,7 @@ import NewsFeed from './components/NewsFeed'
 import WantedCriminals from './components/WantedCriminals'
 import MyComplaints from './components/MyComplaints'
 import MyMissing from './components/MyMissing'
+import Charts from './components/Charts'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ let router = new Router({
             path: '/api/register',
             name: 'register',
             component: Register
+        },
+        {
+            path: '/api/crime_stats',
+            name: 'crime_stats',
+            component: Charts
         },
         {
             path: '/api/logout',

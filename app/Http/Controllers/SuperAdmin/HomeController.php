@@ -5,8 +5,6 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
 use App\Models\MissingPerson;
-use App\Models\Station;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -14,7 +12,8 @@ class HomeController extends Controller
     // returns view of superadmin home
     public function index() {
         return view('superadmin.home', [
-            'crime_rates' => Complaint::crime_stat(),'type_all' => [
+            'crime_rates' => Complaint::crime_stat(),
+            'type_all' => [
                 'Robbery' => Complaint::where('type', 'robbery')->get()->groupBy('status'),
                 'Homicide' => Complaint::where('type', 'homicide')->get()->groupBy('status'),
                 'Assault' => Complaint::where('type', 'assault')->get()->groupBy('status'),

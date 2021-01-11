@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <label for="woreda">Woreda</label>
                         <select name="woreda" id="woreda" class="form-control" aria-describedby="woredaHelp">
-                            @for ($i = 1; $i <= 5; $i++)
+                            @for ($i = 2; $i <= 6; $i++)
                                 <option @if($i==$station->woreda) selected @endif value="{{$i}}">{{$i}}</option>
                             @endfor
                         </select>

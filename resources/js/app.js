@@ -7,6 +7,7 @@ window.Vue = require('vue')
 import Axios from 'axios'
 import store from './store'
 import VueSweetalert2 from 'vue-sweetalert2';
+import Chart from 'chart.js';
 
 // axios setup
 Vue.prototype.$http = Axios

@@ -35,7 +35,7 @@ class StationsController extends Controller
             'woreda' => 'required|integer|between:1,30'
         ]);
         $station = Station::create($request->all());
-        $departments = ['robbery', 'homicide', 'assault', 'burglary', 'narcotics'];
+        $departments = ['robbery', 'homicide', 'assault', 'burglary', 'others'];
         foreach($departments as $d) {
             $station->departments()->create([
                 'name' => $d

@@ -41,7 +41,9 @@
               <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/wanted_criminals"
                 >Wanted criminals</router-link
               >
-              <a class="dropdown-item nav-link js-scroll-trigger" href="#">Crime stats</a>
+              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/crime_stats"
+                >Crime Statstics</router-link
+              >
             </div>
           </li>
 
