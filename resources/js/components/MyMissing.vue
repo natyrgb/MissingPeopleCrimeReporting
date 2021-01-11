@@ -5,7 +5,7 @@
         <h2 class="section-heading text-uppercase">missing person</h2>
       </div>
       <body>
-        <table>
+        <table class="table-responsive">
           <thead>
             <tr>
               <th>Date</th>

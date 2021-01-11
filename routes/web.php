@@ -38,7 +38,7 @@ Route::prefix('superadmin')->name('superadmin.')->middleware(['auth:employee', '
     Route::resource('blogs', BlogsController::class);
     Route::resource('wanted_criminals', WantedCriminalsController::class)->only(['index', 'destroy']);
     Route::get('wanted_criminals/mark_found/{wantedCriminal}', [WantedCriminalsController::class, 'markFound'])->name('wanted_criminals.mark_found');
-    Route::get('make_wanted/{criminal}', [WantedCriminalsController::class, 'makeWanted'])->name('makeWanted');
+    Route::get('make_wanted/{criminal}', [WantedCriminalsController::class, 'makeWanted'])->name('make_wanted');
 });
 
 Route::prefix('admin')->name('admin.')->middleware(['auth:employee', 'admin'])->group(function() {

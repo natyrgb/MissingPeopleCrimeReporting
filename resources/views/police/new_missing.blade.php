@@ -22,7 +22,11 @@
                             <tr>
                                 <th scope="row">{{$item->id}}</th>
                                 <td>{{$item->user->name}}</td>
-                                <td><img src="{{asset($item->attachment->url)}}" width="140" class="img-fluid"></td>
+                                <td>
+                                    <a id="{{asset($item->attachment->url)}}"class="btn btn-success" data-toggle="modal" data-target="#modal_missing">
+                                        {{$item->attachment->url}}
+                                    </a>
+                                </td>
                                 <td>{{ucwords(str_replace('_', ' ', $item->status))}}</td>
                                 <td>
                                     <a href="{{route('police.mark_as_found', $item->id)}}" class="btn btn-success">Mark As Found</a>
@@ -40,5 +44,18 @@
         </div>
     </div>
 </div>
+
+@include('police.partials.modal')
+
+@endsection
+
+@section('js')
+<script>
+    $('.modal').on('shown.bs.modal', function(e) {
+        var src = $(e.relatedTarget).attr('id');
+        $(this).find('#missing_img').attr('src', src);
+        $('#image_container').show();
+    })
+</script>
 @endsection
 

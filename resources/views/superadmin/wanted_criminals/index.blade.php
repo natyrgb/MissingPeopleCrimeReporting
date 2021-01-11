@@ -92,7 +92,7 @@
                                                 <a class="btn btn-danger delete" id="{{$item->id}}" data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <i class="far fa-trash-alt"></i>
                                                 </a>
-                                                <form action="{{route('superadmin.blogs.destroy', $item)}}" method="post" id="delete{{$item->id}}">
+                                                <form action="{{route('superadmin.blogs.destroy', [$item])}}" method="post" id="delete{{$item->id}}">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>

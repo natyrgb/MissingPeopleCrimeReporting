@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +21,11 @@ class MissingPerson extends Model
     // return the user who reported the missing person
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // overrides the created_at attribute into a human readable time like One Day Ago and such
+    public function getTimeAttribute() {
+        return  Carbon::parse($this->attributes['created_at'])->diffForHumans();
     }
 
     // returns the station in which the missing person is reported

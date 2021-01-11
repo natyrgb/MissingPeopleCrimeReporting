@@ -31,4 +31,8 @@ class Criminal extends Model
             $this->mugshot2 = "images/criminals/$this->name/".$imageName;
         $this->save();
     }
+
+    public static function newWanted() {
+
+    }
 }

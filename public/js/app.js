@@ -2446,19 +2446,24 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.getResults();
+    window.Echo.channel('missing-people').listen('MissingPersonAdded', function (e) {
+      _this.missing_people = e.missingPeople;
+    });
   },
   methods: {
     display_data: function display_data() {
       console.log(this.data);
     },
     getResults: function getResults() {
-      var _this = this;
+      var _this2 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get("/api/missing_people_for_guest?page=" + page).then(function (response) {
         console.log(response.data.missing_people);
-        _this.missing_people = response.data.missing_people;
+        _this2.missing_people = response.data.missing_people;
       });
     },
     showModal: function showModal(url, name, desc) {
@@ -3216,6 +3221,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.getWoredas();
@@ -3394,16 +3401,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.getResults();
+    window.Echo.channel('wanted-criminal').listen('WantedCriminalAdded', function (e) {
+      _this.wanted_criminal = e.wantedCriminals;
+    });
   },
   methods: {
     getResults: function getResults() {
-      var _this = this;
+      var _this2 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get("/api/wanted_criminals_api?page=" + page).then(function (response) {
         console.log(response.data.wanted_criminals);
-        _this.wanted_criminal = response.data.wanted_criminals;
+        _this2.wanted_criminal = response.data.wanted_criminals;
       });
     },
     showModal: function showModal(url, name, desc) {
@@ -48995,7 +49007,7 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("body", [
-          _c("table", [
+          _c("table", { staticClass: "table-responsive" }, [
             _vm._m(1),
             _vm._v(" "),
             _c(
@@ -49977,6 +49989,15 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", [
+                  _c(
+                    "label",
+                    {
+                      staticStyle: { color: "white !important" },
+                      attrs: { for: "date" }
+                    },
+                    [_vm._v("Date of Missing")]
+                  ),
+                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -49990,7 +50011,7 @@ var render = function() {
                     class: {
                       "is-invalid": _vm.validationErrors.hasOwnProperty("date")
                     },
-                    attrs: { type: "date", name: "date" },
+                    attrs: { id: "date", type: "date", name: "date" },
                     domProps: { value: _vm.date },
                     on: {
                       input: function($event) {
@@ -75440,8 +75461,8 @@ var path = '/api';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Yohannes\Documents\projects\MissingPeopleCrimeReporting\resources\sass\admin.scss */"./resources/sass/admin.scss");
+__webpack_require__(/*! C:\Users\Naty_G\Desktop\MissingPeopleCrimeReporting\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Naty_G\Desktop\MissingPeopleCrimeReporting\resources\sass\admin.scss */"./resources/sass/admin.scss");
 
 
 /***/ })

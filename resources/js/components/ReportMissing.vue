@@ -78,8 +78,10 @@
                             </div>
 
                         <div>
+                            <label for="date" style="color:white !important;">Date of Missing</label>
                             <input
                                 v-model="date"
+                                id="date"
                                 type="date"
                                 name="date"
                                 class="form-control"

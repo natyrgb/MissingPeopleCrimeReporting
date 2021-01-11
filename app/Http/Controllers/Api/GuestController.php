@@ -24,7 +24,10 @@ class GuestController extends Controller
      * @return json paginated object of missing people which are not found
      */
     public function missingPeople() {
-        return response()->json(['missing_people' => MissingPerson::where('status', '<>', 'found')->paginate(6)]);
+        return response()->json(['missing_people' => MissingPerson::where([
+            ['status', '<>', 'found'],
+            ['status', '<>', 'seen']
+        ])->paginate(6)]);
     }
 
     /**

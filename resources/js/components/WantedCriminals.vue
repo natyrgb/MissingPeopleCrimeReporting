@@ -104,6 +104,10 @@ export default {
   },
   mounted() {
     this.getResults();
+    window.Echo.channel('wanted-criminal')
+    .listen('WantedCriminalAdded', (e) => {
+        this.wanted_criminal = e.wantedCriminals
+    })
   },
 
   methods: {

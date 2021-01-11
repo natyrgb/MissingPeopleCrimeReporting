@@ -101,6 +101,10 @@ export default {
   },
   mounted() {
     this.getResults();
+    window.Echo.channel('missing-people')
+    .listen('MissingPersonAdded', (e) => {
+        this.missing_people = e.missingPeople
+    })
   },
 
   methods: {

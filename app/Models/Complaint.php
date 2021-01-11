@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,12 @@ class Complaint extends Model
 
     protected $guarded = ['id'];// guarded makes the id field not insertable
     protected $with = ['attachment'];// allows the attachment relation to be eager loaded with the complaint object
+
+
+    // overrides the created_at attribute into a human readable time like One Day Ago and such
+    public function getCreatedAtAttribute() {
+        return  Carbon::parse($this->attributes['created_at'])->diffForHumans();
+    }
 
     //returns attachment of the complaint
     public function attachment() {
