@@ -1966,7 +1966,7 @@ __webpack_require__.r(__webpack_exports__);
       type_station: [],
       type_all: [],
       still_missing: 0,
-      found: 1
+      found: 0
     };
   },
   mounted: function mounted() {

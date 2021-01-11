@@ -57,7 +57,7 @@ export default {
       type_station: [],
       type_all: [],
       still_missing: 0,
-      found: 1,
+      found: 0,
     };
   },
   mounted() {
