@@ -16,7 +16,7 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('station_id');
-            $table->enum('name', ['robbery', 'homicide', 'assault', 'burglary', 'narcotics']);
+            $table->enum('name', ['robbery', 'homicide', 'assault', 'burglary', 'others']);
             $table->timestamps();
 
             $table->foreign('station_id')->references('id')->on('stations');

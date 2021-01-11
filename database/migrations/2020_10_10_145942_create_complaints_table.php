@@ -18,7 +18,7 @@ class CreateComplaintsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('station_id');
             $table->unsignedBigInteger('police_id')->nullable();
-            $table->enum('type', ['robbery', 'homicide', 'assault', 'burglary', 'narcotics']);
+            $table->enum('type', ['robbery', 'homicide', 'assault', 'burglary', 'others']);
             $table->text('details');
             $table->enum('status', ['new', 'under_investigation', 'in_court', 'solved'])->default('new');
             $table->boolean('is_spam')->default(false);

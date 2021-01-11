@@ -26,7 +26,7 @@ class ComplaintsController extends Controller
      * @return json object of complaints made by the user and success message
      */
     public function store(Request $request) {
-        $crime = ['robbery', 'homicide', 'domestic_abuse', 'assault', 'burglary', 'narcotics', 'sex_crime', 'other'];
+        $crime = ['robbery', 'homicide', 'assault', 'burglary', 'other'];
         $validator = Validator::make($request->all(), [
             'type' => [
                 'required',

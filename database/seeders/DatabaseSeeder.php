@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $stations = Station::all();
-        $departments = ['robbery', 'homicide', 'assault', 'burglary', 'narcotics'];
+        $departments = ['robbery', 'homicide', 'assault', 'burglary', 'others'];
         foreach ($stations as $station) {
             if($station->id != 1) {
                 foreach ($departments as $department) {
