@@ -66237,7 +66237,7 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("body", [
-          _c("table", { staticClass: "table-responsive" }, [
+          _c("table", [
             _vm._m(1),
             _vm._v(" "),
             _c(
