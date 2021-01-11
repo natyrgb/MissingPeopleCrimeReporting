@@ -49,7 +49,7 @@ export default {
   methods: {
     getResults() {
       let vm = this;
-      axios.get("/api/charts_api/"+localStorage.getItem('userId')).then((response) => {
+      axios.get("/api/charts_api").then((response) => {
         vm.crime_rates = response.data.crime_rates;
         vm.type_station = response.data.type_station;
         vm.still_missing = response.data.still_missing;

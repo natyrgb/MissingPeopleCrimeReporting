@@ -214,6 +214,18 @@ export default {
                         });
                 })
                 .catch(error => {
+                    if(err.response.status == 422)
+                        currentObj.$swal({
+                            icon: "error",
+                            title: "Oops...",
+                            text: err.response.data.message
+                        });
+                    else
+                        currentObj.$swal({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong with our system... Contact our support staff if the problem persists."
+                        });
                     currentObj.validationErrors = error.response.data.errors;
                 });
         }

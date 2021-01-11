@@ -37,10 +37,7 @@ class AccountController extends Controller
             'password' => [
                 Rule::requiredIf($employee->password_changed == false),
                 'nullable', 'string','min:8','confirmed',
-                'regex:/[a-z]/',      // must contain at least one lowercase letter
-                'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                'regex:/[0-9]/',      // must contain at least one digit
-                'regex:/[@$!%*#?&]/',
+                'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/',
                 function ($attribute, $value, $fail) {
                     if (Hash::check($value, Auth::guard('employee')->user()->password)) {
                         $fail('The password has not changed.');

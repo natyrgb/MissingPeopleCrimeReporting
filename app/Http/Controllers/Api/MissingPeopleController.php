@@ -55,7 +55,7 @@ class MissingPeopleController extends Controller
             $attachment = $missing_person->attachment()->create([
                 'attachable_id' => $missing_person->id,
                 'attachable_type' => 'missing_people',
-                'url' => ' '
+                'url' => ''
             ]);
             $attachment->saveFile($request->file('image'));
         }

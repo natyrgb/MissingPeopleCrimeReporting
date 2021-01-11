@@ -2,10 +2,10 @@
     <section class="page-section" id="contact">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Register</h2>
+                <h2 class="section-heading text-uppercase">Edit Account Information</h2>
             </div>
             <form
-                @submit.prevent="register"
+                @submit.prevent="update"
                 name="sentMessage"
                 novalidate="novalidate"
                 action="#"
@@ -17,7 +17,6 @@
                             <input
                                 v-model="form.name"
                                 type="text"
-                                placeholder=" Your Name"
                                 class="form-control"
                                 :class="{
                                     'is-invalid': validationErrors.hasOwnProperty(
@@ -73,9 +72,8 @@
                                 {{ validationErrors.phone[0] }}
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group">
+                            <label for="inputGroupSelect01" style="color:white;">Woreda</label>
                             <select
                                 class="custom-select"
                                 id="inputGroupSelect01"
@@ -104,11 +102,13 @@
                                 {{ validationErrors.woreda[0] }}
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <input
                                 v-model="form.password"
                                 type="password"
-                                placeholder="Your Password"
+                                placeholder="New Password(Optional)"
                                 class="form-control"
                                 :class="{
                                     'is-invalid': validationErrors.hasOwnProperty(
@@ -128,7 +128,7 @@
                             <input
                                 v-model="form.password_confirmation"
                                 type="password"
-                                placeholder="Confirm password"
+                                placeholder="Confirm New Password(Optional)"
                                 class="form-control"
                                 :class="{
                                     'is-invalid': validationErrors.hasOwnProperty(
@@ -137,6 +137,27 @@
                                 }"
                                 name="password_confirmation"
                             />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                v-model="form.old_password"
+                                type="password"
+                                placeholder="Old Password"
+                                class="form-control"
+                                :class="{
+                                    'is-invalid': validationErrors.hasOwnProperty(
+                                        'old_password'
+                                    )
+                                }"
+                                name="old_password"
+                                required
+                            />
+                            <div
+                                class="invalid-feedback d-block"
+                                v-if="validationErrors.old_password"
+                            >
+                                {{ validationErrors.old_password[0] }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,23 +180,27 @@
 export default {
     created() {
         this.getWoredas();
+        this.fillForm();
     },
     data() {
         return {
+            user: JSON.parse(localStorage.getItem('user')),
             form: new Form({
                 name: "",
                 email: "",
                 phone: "",
                 woreda: "",
                 password: "",
-                password_confirmation: ""
+                password_confirmation: "",
+                old_password: ""
             }),
-            validationErrors: {}
+            validationErrors: {},
         };
     },
 
     methods: {
         getWoredas() {
+            console.log(this.user);
             let vm = this;
             axios
                 .get("/api/get_woredas")
@@ -197,7 +222,13 @@ export default {
                     vm.validationErrors = err.response.data.errors;
                 });
         },
-        register() {
+        fillForm() {
+            this.form.name = this.user.name
+            this.form.email = this.user.email
+            this.form.phone = this.user.phone
+            this.form.woreda = this.user.woreda
+        },
+        update() {
             var currentObj = this;
             let data = {};
             data.name = this.form.name;
@@ -206,17 +237,23 @@ export default {
             data.woreda = this.form.woreda;
             data.password = this.form.password;
             data.password_confirmation = this.form.password_confirmation;
-            this.$store
-                .dispatch("register", data)
-                .then(() => {
+            data.old_password = this.form.old_password;
+            axios.post('/api/update_account', data)
+                .then((response) => {
                     currentObj.$swal({
                         icon: "success",
-                        title: "Welcome",
-                        text: "Thank you for registering."
+                        title: "Awesome..",
+                        text: "You have successfully updated your user information."
                     });
-                    this.$router.push("/api/news_feed")
+                    localStorage.setItem('user', JSON.stringify(response.data.user))
+                    currentObj.form.password = ""
+                    currentObj.form.password_confirmation = ""
+                    currentObj.form.old_password = ""
+                    $(".invalid-feedback").html('');
+                    currentObj.validationErrors = {}
+                    currentObj.$forceUpdate();
                 })
-                .catch(err => {
+                .catch((err) => {
                     if(err.response.status == 422)
                         currentObj.$swal({
                             icon: "error",

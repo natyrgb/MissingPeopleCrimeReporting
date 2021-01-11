@@ -15,13 +15,14 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::get('/get_woredas', [GuestController::class, 'getWoredas']);
-    Route::get('/charts_api/{userId?}', [GuestController::class, 'charts']);
+    Route::get('/charts_api', [GuestController::class, 'charts']);
     Route::get('/missing_people_for_guest', [GuestController::class, 'missingPeople']);
     Route::get('/wanted_criminals_api', [GuestController::class, 'wantedCriminals']);
     Route::get('/news_feed_api', [GuestController::class, 'newsFeed']);
 
     Route::middleware('auth:api')->group(function() {
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/update_account', [AuthController::class, 'updateAccount']);
         Route::get('/mark_missing_found/{missingPerson}', [MissingPeopleController::class, 'foundByUser']);
         Route::apiResource('complaints_api', ComplaintsController::class)->except(['show','update','destroy']);
         Route::apiResource('missings_api', MissingPeopleController::class)->except(['show','update','destroy']);

@@ -47,8 +47,7 @@ class GuestController extends Controller
         return response()->json(['news' => Blog::thisWeeksNews()]);
     }
 
-    public function charts($userId = 0) {
-        $user = User::where('id', $userId)->first();
+    public function charts() {
         $data = [
             'crime_rates' => Complaint::crime_stat(),
             'still_missing' => MissingPerson::where('status', 'new')->orWhere('status', 'missing')->count(),

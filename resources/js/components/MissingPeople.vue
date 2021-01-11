@@ -5,7 +5,12 @@
         <h2 class="section-heading text-uppercase">missing people</h2>
         <h3 class="section-subheading text-muted"></h3>
       </div>
-      <div class="row justify-content-center">
+      <div v-if="!missing_people.data || missing_people.data.length < 1" class="container">
+        <div class="alert alert-secondary">
+          <p class="lead">There are no wanted criminal right now.</p>
+        </div>
+      </div>
+      <div v-if="missing_people.data && missing_people.data.length >= 1" class="row justify-content-center">
         <div
           class="col-lg-3 col-sm-6 mb-4"
           v-for="missing in missing_people.data"

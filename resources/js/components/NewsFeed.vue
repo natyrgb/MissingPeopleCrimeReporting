@@ -1,10 +1,15 @@
 <template>
-  <section class="page-section" id="about">
+  <section class="page-section" id="portfolio">
     <div class="container">
       <div class="text-center">
         <h2 class="section-heading text-uppercase">News feed</h2>
       </div>
-      <ul class="timeline">
+      <div v-if="news_feed.length == 0" class="container">
+        <div class="alert alert-secondary">
+          <p class="lead">There are no news available.</p>
+        </div>
+      </div>
+      <ul v-if="news_feed.length != 0" class="timeline">
         <li
           v-for="news in news_feed"
           v-bind:key="news.id"
@@ -41,11 +46,10 @@ export default {
   mounted() {
     axios.get("/api/news_feed_api").then((response) => {
       this.news_feed = response.data.news;
-    })
-    window.Echo.channel('blogs')
-    .listen('BlogAdded', (e) => {
-        this.news_feed = e.blogs
-    })
+    });
+    window.Echo.channel("blogs").listen("BlogAdded", (e) => {
+      this.news_feed = e.blogs;
+    });
   },
 
   methods: {

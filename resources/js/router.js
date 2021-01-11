@@ -13,6 +13,7 @@ import WantedCriminals from './components/WantedCriminals'
 import MyComplaints from './components/MyComplaints'
 import MyMissing from './components/MyMissing'
 import Charts from './components/Charts'
+import EditAccount from './components/EditAccount'
 
 Vue.use(Router)
 
@@ -58,6 +59,14 @@ let router = new Router({
             path: '/api/logout',
             name: 'logout',
             component: Logout,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/api/edit_account',
+            name: 'edit_account',
+            component: EditAccount,
             meta: {
                 requiresAuth: true
             }

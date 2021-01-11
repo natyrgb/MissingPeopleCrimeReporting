@@ -5,7 +5,12 @@
         <h2 class="section-heading text-uppercase">wanted criminals</h2>
         <h3 class="section-subheading text-muted"></h3>
       </div>
-      <div class="row justify-content-center">
+      <div v-if="!wanted_criminal.data || wanted_criminal.data.length < 1" class="container">
+        <div class="alert alert-secondary">
+          <p class="lead">There are no wanted criminal right now.</p>
+        </div>
+      </div>
+      <div v-if="wanted_criminal.data && wanted_criminal.data.length >= 1" class="row justify-content-center">
         <div
           class="col-lg-3 col-sm-6 mb-4"
           v-for="wanted in wanted_criminal.data"
@@ -104,10 +109,12 @@ export default {
   },
   mounted() {
     this.getResults();
-    window.Echo.channel('wanted-criminals')
-    .listen('WantedCriminalAdded', (e) => {
-        this.wanted_criminal = e.wantedCriminals
-    })
+    window.Echo.channel("wanted-criminals").listen(
+      "WantedCriminalAdded",
+      (e) => {
+        this.wanted_criminal = e.wantedCriminals;
+      }
+    );
   },
 
   methods: {

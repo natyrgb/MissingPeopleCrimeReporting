@@ -49,7 +49,7 @@ class ComplaintsController extends Controller
             $attachment = $complaint->attachment()->create([
                 'attachable_id' => $complaint->id,
                 'attachable_type' => 'complaints',
-                'url' => 'images/complaints/'
+                'url' => ''
             ]);
             $attachment->saveFile($request->file('image'));
         }

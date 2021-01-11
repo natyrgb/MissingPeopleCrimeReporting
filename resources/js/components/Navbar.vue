@@ -32,16 +32,24 @@
               News Feed
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/news_feed"
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/news_feed"
                 >News Feed</router-link
               >
-              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/missing_people"
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/missing_people"
                 >Missing people</router-link
               >
-              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/wanted_criminals"
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/wanted_criminals"
                 >Wanted criminals</router-link
               >
-              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/crime_stats"
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/crime_stats"
                 >Crime Statstics</router-link
               >
             </div>
@@ -59,10 +67,14 @@
               Make Report
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/make_complaint"
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/make_complaint"
                 >Make complaints</router-link
               >
-              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/report_missing"
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/report_missing"
                 >Report missing person</router-link
               >
             </div>
@@ -79,17 +91,42 @@
               My Reports
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/my_complaints"
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/my_complaints"
                 >Complaints</router-link
               >
-              <router-link class="dropdown-item nav-link js-scroll-trigger" to="/api/my_missing_people"
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/my_missing_people"
                 >Missing people</router-link
               >
             </div>
           </li>
-          <li v-if="isLoggedIn" id="logout" class="nav-item">
-            <a class="nav-link js-scroll-trigger" @click="logout" style="cursor: pointer;"
-              >Logout</a>
+          <li v-if="isLoggedIn" class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="far fa-user"></i> My Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <router-link
+                class="dropdown-item nav-link js-scroll-trigger"
+                to="/api/edit_account"
+                >Edit Account</router-link
+              >
+              <a
+                class="nav-link js-scroll-trigger"
+                @click="logout"
+                style="cursor: pointer"
+                >Logout</a
+              >
+            </div>
           </li>
 
           <li v-if="!isLoggedIn" id="login" class="nav-item">
@@ -98,12 +135,10 @@
             >
           </li>
           <li v-if="!isLoggedIn" class="nav-item" id="register">
-            <router-link
-                class="nav-link js-scroll-trigger"
-                to="/api/register"
-                >Register Here!</router-link
+            <router-link class="nav-link js-scroll-trigger" to="/api/register"
+              >Register Here!</router-link
             >
-        </li>
+          </li>
         </ul>
       </div>
     </div>
@@ -113,7 +148,9 @@
 <script>
 export default {
   computed: {
-    isLoggedIn : function(){ return this.$store.getters.isLoggedIn }
+    isLoggedIn: function () {
+      return this.$store.getters.isLoggedIn;
+    },
   },
   methods: {
     logout: function () {
