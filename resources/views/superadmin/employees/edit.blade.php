@@ -46,6 +46,7 @@
                     <div class="form-group">
                         <label for="role">Role</label>
                         <select required class="form-control" id="role" name="role" aria-describedby="roleHelp">
+                            <option @if($employee->role == 'ADMIN') selected @endif value="ADMIN">Admin</option>
                             <option @if($employee->role == 'POLICE') selected @endif value="POLICE">Police</option>
                             <option @if($employee->role == 'ATTORNEY') selected @endif value="ATTORNEY">Attorney</option>
                         </select>
