@@ -3006,12 +3006,16 @@ input[type=button].btn-block {
   margin-left: 0;
 }
 
+.dropdown:hover > .dropdown-menu {
+    visibility: visible;
+    transition-delay: 0s;
+}
 .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 1000;
-  display: none;
+  visibility: hidden;
   float: left;
   min-width: 10rem;
   padding: 0.5rem 0;
@@ -3020,10 +3024,11 @@ input[type=button].btn-block {
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: #000;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
+  transition: 0.001s 1s;
 }
 
 .dropdown-menu-left {
@@ -3179,11 +3184,12 @@ input[type=button].btn-block {
   white-space: nowrap;
   background-color: transparent;
   border: 0;
+  border-radius: .3em;
 }
 .dropdown-item:hover, .dropdown-item:focus {
-  color: #16181b;
+  color: #f8f9fa;
   text-decoration: none;
-  background-color: #f8f9fa;
+  background-color: #16181b;
 }
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;

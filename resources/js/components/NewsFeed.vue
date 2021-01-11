@@ -53,9 +53,6 @@ export default {
   },
 
   methods: {
-    display_data() {
-      console.log(this.data);
-    },
     getData() {
       axios
         .get("/api/news_feed_api")
@@ -63,7 +60,6 @@ export default {
           let news_feed = response.data.news;
         })
         .catch(function (err) {
-          console.log(err);
         });
     },
   },

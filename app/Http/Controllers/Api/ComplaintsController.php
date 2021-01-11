@@ -40,7 +40,8 @@ class ComplaintsController extends Controller
         if($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
+                'message' => 'Your input was invalid.'
             ], 422);
         }
         $user = $request->user();

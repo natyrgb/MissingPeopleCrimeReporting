@@ -99,7 +99,6 @@
         var button = $(event.relatedTarget)
         var recipient = button.data('whatever')
         var modal = $(this)
-        console.log(button.data('whatever'));
         modal.find('#sus_name').html(recipient.name)
         modal.find('#sus_addr').html(recipient.address)
         modal.find('#sus_stat').html(makeTitleAlt(recipient.status))

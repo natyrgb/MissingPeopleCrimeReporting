@@ -101,7 +101,6 @@
                     $.each(employees, function(i, employee) {
                         let r ='<tr><td scope="col">'+(++i)+'</td><td>'+employee.name+'</td><td>'+employee.role+'</td>';
                         r += '<td><a class="btn btn-success" href="/superadmin/add_admin/'+station+'/'+employee.id+'">Assign</a></td></tr>'
-                        console.log(r);
                         $('#police table > tbody').append(r);
                     });
                     var myModal = new bootstrap.Modal(document.getElementById("police"), {});

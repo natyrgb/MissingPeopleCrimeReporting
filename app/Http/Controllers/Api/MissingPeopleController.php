@@ -42,13 +42,20 @@ class MissingPeopleController extends Controller
      */
     public function store(Request $request) {
         $user = $request->user();
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'description' => 'required|string',
             'image' => 'required|mimes:jpg,jpeg,png,bmp|max:4000',
             'woreda' => 'required|integer|exists:stations,id',
             'date' => 'required|date'
         ]);
+        if($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+                'message' => 'Your input was invalid.'
+            ], 422);
+        }
         $request['time'] = $request['date'];
         $missing_person = $user->missingPeople()->create($request->all());
         if($request->hasFile('image')) {

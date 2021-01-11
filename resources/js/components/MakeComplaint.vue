@@ -226,6 +226,9 @@ export default {
             axios
                 .post("/api/complaints_api", formData)
                 .then(function(response) {
+                    $(".invalid-feedback").html('');
+                    currentObj.validationErrors = {}
+                    currentObj.$forceUpdate();
                     currentObj
                         .$swal({
                             icon: "success",

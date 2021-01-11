@@ -50,7 +50,6 @@ export default {
     getResults() {
       axios.get("/api/complaints_api").then((response) => {
         this.my_complaints = response.data.my_complaints;
-        console.log(response.data.my_complaints);
       });
     },
   },

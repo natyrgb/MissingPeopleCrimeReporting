@@ -195,6 +195,9 @@ export default {
             axios
                 .post("/api/missings_api", formData)
                 .then(function(response) {
+                    $(".invalid-feedback").html('');
+                    currentObj.validationErrors = {}
+                    currentObj.$forceUpdate();
                     currentObj
                         .$swal({
                             icon: "success",
@@ -213,12 +216,12 @@ export default {
                                 );
                         });
                 })
-                .catch(error => {
-                    if(err.response.status == 422)
+                .catch((error) => {
+                    if(error.response.status == 422)
                         currentObj.$swal({
                             icon: "error",
                             title: "Oops...",
-                            text: err.response.data.message
+                            text: error.response.data.message
                         });
                     else
                         currentObj.$swal({

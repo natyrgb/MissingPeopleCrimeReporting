@@ -200,7 +200,6 @@ export default {
 
     methods: {
         getWoredas() {
-            console.log(this.user);
             let vm = this;
             axios
                 .get("/api/get_woredas")
@@ -214,12 +213,6 @@ export default {
                     vm.woredas = JSON.parse(JSON.stringify(response.data));
                 })
                 .catch(function(err) {
-                    vm.$swal({
-                        icon: "error",
-                        title: "Oops...",
-                        text: err.response.data.message
-                    });
-                    vm.validationErrors = err.response.data.errors;
                 });
         },
         fillForm() {

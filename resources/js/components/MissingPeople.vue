@@ -113,14 +113,10 @@ export default {
   },
 
   methods: {
-    display_data() {
-      console.log(this.data);
-    },
     getResults(page = 1) {
       axios
         .get("/api/missing_people_for_guest?page=" + page)
         .then((response) => {
-          console.log(response.data.missing_people);
           this.missing_people = response.data.missing_people;
         });
     },

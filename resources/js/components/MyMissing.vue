@@ -57,7 +57,6 @@ export default {
   methods: {
     getResults() {
       axios.get("/api/missings_api").then((response) => {
-          console.log(response.data);
         this.my_missing_person = response.data.my_missing;
       });
     },

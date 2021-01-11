@@ -2049,9 +2049,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         });
-      })["catch"](function (error) {
-        console.log(error);
-      });
+      })["catch"](function (error) {});
     },
     getLength: function getLength() {
       var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -2279,7 +2277,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getWoredas: function getWoredas() {
-      console.log(this.user);
       var vm = this;
       axios.get("/api/get_woredas").then(function (response) {
         var x = response.data;
@@ -2287,14 +2284,7 @@ __webpack_require__.r(__webpack_exports__);
           $("#inputGroupSelect01 option:last").after("<option value=\"".concat(i, "\">").concat(i, "</option>"));
         });
         vm.woredas = JSON.parse(JSON.stringify(response.data));
-      })["catch"](function (err) {
-        vm.$swal({
-          icon: "error",
-          title: "Oops...",
-          text: err.response.data.message
-        });
-        vm.validationErrors = err.response.data.errors;
-      });
+      })["catch"](function (err) {});
     },
     fillForm: function fillForm() {
       this.form.name = this.user.name;
@@ -2389,9 +2379,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2758,6 +2746,9 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("image", this.image);
       formData.append("details", this.remarks);
       axios.post("/api/complaints_api", formData).then(function (response) {
+        $(".invalid-feedback").html('');
+        currentObj.validationErrors = {};
+        currentObj.$forceUpdate();
         currentObj.$swal({
           icon: "success",
           title: "Hurray...",
@@ -2907,15 +2898,11 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    display_data: function display_data() {
-      console.log(this.data);
-    },
     getResults: function getResults() {
       var _this2 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get("/api/missing_people_for_guest?page=" + page).then(function (response) {
-        console.log(response.data.missing_people);
         _this2.missing_people = response.data.missing_people;
       });
     },
@@ -2992,7 +2979,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/complaints_api").then(function (response) {
         _this.my_complaints = response.data.my_complaints;
-        console.log(response.data.my_complaints);
       });
     }
   }
@@ -3069,7 +3055,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/missings_api").then(function (response) {
-        console.log(response.data);
         _this.my_missing_person = response.data.my_missing;
       });
     },
@@ -3324,15 +3309,10 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    display_data: function display_data() {
-      console.log(this.data);
-    },
     getData: function getData() {
       axios.get("/api/news_feed_api").then(function (response) {
         var news_feed = response.data.news;
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      })["catch"](function (err) {});
     }
   }
 });
@@ -3774,6 +3754,9 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("date", this.date);
       formData.append("description", this.description);
       axios.post("/api/missings_api", formData).then(function (response) {
+        $(".invalid-feedback").html('');
+        currentObj.validationErrors = {};
+        currentObj.$forceUpdate();
         currentObj.$swal({
           icon: "success",
           title: "Success",
@@ -3786,10 +3769,10 @@ __webpack_require__.r(__webpack_exports__);
           if (result.isConfirmed) currentObj.$router.push("/api/my_missing_people");
         });
       })["catch"](function (error) {
-        if (err.response.status == 422) currentObj.$swal({
+        if (error.response.status == 422) currentObj.$swal({
           icon: "error",
           title: "Oops...",
-          text: err.response.data.message
+          text: error.response.data.message
         });else currentObj.$swal({
           icon: "error",
           title: "Oops...",
