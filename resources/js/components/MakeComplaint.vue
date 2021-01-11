@@ -74,9 +74,11 @@
                                 <option disabled value=""
                                     >Choose crime type..</option
                                 >
-                                <option value="robbery">burglury</option>
-                                <option value="assault">assault</option>
-                                <option value="homicide">homicide</option>
+                                <option value="robbery">Burglury</option>
+                                <option value="assault">Assault</option>
+                                <option value="homicide">Homicide</option>
+                                <option value="robbery">Robbery</option>
+                                <option value="others">Other</option>
                             </select>
                             <div
                                 class="invalid-feedback d-block"

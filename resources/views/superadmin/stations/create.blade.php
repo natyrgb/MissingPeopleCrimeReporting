@@ -18,11 +18,11 @@
                     <div class="form-group">
                         <label for="woreda">Woreda</label>
                         <select name="woreda" id="woreda" class="form-control" aria-describedby="woredaHelp">
-                            <option selected value="1">1</option>
-                            <option value="2">2</option>
+                            <option selected value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
+                            <option value="6">6</option>
                         </select>
                         @error('woreda')
                             <small id="woredaHelp" class="form-text text-muted">{{$message}}</small>
