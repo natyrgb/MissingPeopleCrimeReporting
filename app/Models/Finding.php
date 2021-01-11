@@ -37,7 +37,7 @@ class Finding extends Model
         $findings = Finding::where('attorney_id', $attorney_id)->get();
         $open_cases = [];
         if(!$findings->count()) {
-            return $open_cases;
+            return collect($open_cases);
         }
         else {
             foreach($findings as $finding) {
