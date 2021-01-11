@@ -76,9 +76,9 @@
                                 >
                                 <option value="robbery">burglury</option>
                                 <option value="assault">assault</option>
-                                <option value="homicide">robbery</option>
+                                <option value="robbery">robbery</option>
                                 <option value="homicide">homicide</option>
-                                <option value="homicide">others</option>
+                                <option value="others">others</option>
                             </select>
                             <div
                                 class="invalid-feedback d-block"
