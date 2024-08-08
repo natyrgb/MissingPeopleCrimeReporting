@@ -1,64 +1,76 @@
-change station id to woreda id on missing_people table
+# Missing Person and Crime Reporting System
+
+## Overview
+The Missing Person and Crime Reporting System is a comprehensive platform designed to facilitate the reporting and management of missing persons and crime incidents. The system provides an intuitive interface for users to report cases, track their status, and manage all related information efficiently.
+
+## Key Features
+- Report Missing Persons: Users can submit detailed reports of missing persons.
+- Report Crimes: Allows users to report crime incidents with relevant details.
+- Case Management: Admins can manage and update cases, including status and details.
+- Search and Filter: Users and admins can search and filter reports based on various criteria.
+- Admin Dashboard: Provides a dashboard for administrators to oversee and manage the system.
+
+## Technologies Used
+- Frontend: 
+  - Vue.js: A progressive JavaScript framework for building interactive user interfaces.
+- Backend: 
+  - Laravel: A PHP framework for building robust backend services.
+  - Blade: Laravel’s templating engine for rendering views.
+- Database: 
+  - MySQL: A relational database management system for storing application data.
+  
+## Installation and Setup
+
+1. Clone the Repository:
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+2. Install Backend Dependencies:
+
+cd backend
+composer install
 
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+ 3. Set Up Environment Variables:
+ • Copy .env.example to .env and configure your database and application settings.
+ • Run php artisan key:generate to generate an application key.
+ 4. Migrate the Database:
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+php artisan migrate
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ 5. Install Frontend Dependencies:
+ • Navigate to the frontend directory:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+cd ../frontend
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+ • Install dependencies:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+npm install
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+ 6. Run the Application:
+ • Start the backend server:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+cd ../backend
+php artisan serve
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+ • Start the frontend development server:
 
-## Contributing
+cd ../frontend
+npm run serve
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+Contact
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+For more information or to request access to the repository, please contact me at natnael98geremew@gmail.com
 
-## Security Vulnerabilities
+### Instructions for Customization
+- Replace placeholders like https://github.com/your-username/your-repo-name.git with your actual repository URL.
+- Update the screenshots section with the actual links to your images.
+- Adjust installation and setup instructions according to your project’s specific structure and requirements.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+This template provides a clear and organized overview of your project and will help users understand and get started with your application.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
